@@ -41,7 +41,7 @@
 
 		acl.createPolicy(policy)
 		debug("created new policy at index " + (acl.acls.length - 1).toString())
-		toastSuccess('Created Policy #' + acl.acls.length, ToastStore)
+		toastSuccess(getTranslation(App.language.value, 'acls.policyCreated', { policyNumber: acl.acls.length.toString() }), ToastStore)
 	}
 
 	function makeReorderFunc(idx: number, direction: 'up' | 'down'): () => void {

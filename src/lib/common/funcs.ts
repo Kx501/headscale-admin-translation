@@ -5,6 +5,7 @@ import { debug } from './debug';
 import DOMPurify from 'dompurify';
 import type { Direction, Node, OnlineStatus, User } from './types';
 import { App } from '$lib/States.svelte';
+import { getTranslation } from './locales';
 
 export function clone<T>(item: T): T {
 	return JSON.parse(JSON.stringify(item)) as T
@@ -200,7 +201,7 @@ export function toastError(message: string, toastStore: ToastStore, error?: Erro
 export function copyToClipboard(
 	s: string,
 	toastStore?: ToastStore,
-	toastMessage = 'Copied to Clipboard!',
+	toastMessage = getTranslation(App.language.value, 'common.copiedToClipboard'),
 ) {
 	navigator.clipboard
 		.writeText(s)
@@ -211,7 +212,7 @@ export function copyToClipboard(
 		})
 		.catch(() => {
 			if (toastStore) {
-				toastError('Failed to copy to clipboard!', toastStore);
+				toastError(getTranslation(App.language.value, 'common.failedToCopyToClipboard'), toastStore);
 			}
 		});
 }

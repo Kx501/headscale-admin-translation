@@ -52,13 +52,15 @@ export interface Translation {
     membersOf: string;
     selectMembersOf: string;
     advertisedTags: string;
-		userDeleted: string;
-		userDeleteFailed: string;
-		userDeleteFailedWithNodes: string;
-		nodeDeleted: string;
-		nodeDeleteFailed: string;
-		userNameNotEmpty: string;
-		nodeNameNotEmpty: string;
+    userDeleted: string;
+    userDeleteFailed: string;
+    userDeleteFailedWithNodes: string;
+    nodeDeleted: string;
+    nodeDeleteFailed: string;
+    userNameNotEmpty: string;
+    nodeNameNotEmpty: string;
+    copiedToClipboard: string;
+    failedToCopyToClipboard: string;
 	};
   navigation: {
     home: string;
@@ -67,6 +69,7 @@ export interface Translation {
     deploy: string;
     routes: string;
     acls: string;
+    aclBuilder: string;
     settings: string;
   };
   home: {
@@ -181,9 +184,27 @@ export interface Translation {
     hostNameConflict: string;
     policyDeleted: string;
     sshRuleDeleted: string;
-		tagRenamed: string;
-		tagDeleted: string;
-		unableToGetPolicy: string;
+    tagRenamed: string;
+    tagDeleted: string;
+    unableToGetPolicy: string;
+    groupNameMustBeLowercase: string;
+    groupNameLimited: string;
+    tagNameNoSpaces: string;
+    hostNameLimited: string;
+    invalidHostIpOrCidr: string;
+    hostAlreadyExists: string;
+    hostDoesNotExist: string;
+    hostNewAlreadyExists: string;
+    tagOldDoesNotExist: string;
+    tagDoesNotExist: string;
+    groupAlreadyExists: string;
+    groupOldDoesNotExist: string;
+    groupDoesNotExist: string;
+    policyDoesNotExist: string;
+    noSshRulesDefined: string;
+    policyCreated: string;
+    sshRuleDoesNotExist: string;
+    savedAclConfiguration: string;
   };
   deploy: {
     title: string;
@@ -277,15 +298,17 @@ export const translations: Record<Language, Translation> = {
       icmp: 'ICMP',
       add: 'Add',
       membersOf: 'Members of',
-		selectMembersOf: 'Select members of',
-		advertisedTags: 'Advertised Tags',
-		userDeleted: 'Deleted User "{name}" (ID: {id})',
-		userDeleteFailed: 'Failed to Delete User "{name}" ({id})',
-		userDeleteFailedWithNodes: 'Failed to Delete User "{name}" ({id}). Still has nodes.',
-		nodeDeleted: 'Deleted machine "{name}" ({id})',
-		nodeDeleteFailed: 'Failed to Delete machine "{name}" ({id})',
-		userNameNotEmpty: 'User name must not be empty',
-		nodeNameNotEmpty: 'Node name must not be empty',
+      selectMembersOf: 'Select members of',
+      advertisedTags: 'Advertised Tags',
+      userDeleted: 'Deleted User "{name}" (ID: {id})',
+      userDeleteFailed: 'Failed to Delete User "{name}" ({id})',
+      userDeleteFailedWithNodes: 'Failed to Delete User "{name}" ({id}). Still has nodes.',
+      nodeDeleted: 'Deleted machine "{name}" ({id})',
+      nodeDeleteFailed: 'Failed to Delete machine "{name}" ({id})',
+      userNameNotEmpty: 'User name must not be empty',
+      nodeNameNotEmpty: 'Node name must not be empty',
+      copiedToClipboard: 'Copied to Clipboard!',
+      failedToCopyToClipboard: 'Failed to copy to clipboard!',
 	},
     navigation: {
       home: 'Home',
@@ -294,6 +317,7 @@ export const translations: Record<Language, Translation> = {
       deploy: 'Deploy',
       routes: 'Routes',
       acls: 'ACLs',
+      aclBuilder: 'ACL Builder',
       settings: 'Settings',
     },
     home: {
@@ -408,10 +432,28 @@ export const translations: Record<Language, Translation> = {
       hostNameConflict: 'Host \'{hostName}\' has the same name as a user.<br />Please rename the host.',
       policyDeleted: 'Policy #\'{policyNumber}\' deleted',
       sshRuleDeleted: 'SSH Rule #\'{ruleNumber}\' deleted',
-		tagRenamed: 'Tag renamed from \'{oldName}\' to \'{newName}\'',
-		tagDeleted: 'Tag \'{tagName}\' deleted',
-		unableToGetPolicy: 'Unable to get policy from server.',
-    },
+      tagRenamed: 'Tag renamed from \'{oldName}\' to \'{newName}\'',
+      tagDeleted: 'Tag \'{tagName}\' deleted',
+      unableToGetPolicy: 'Unable to get policy from server.',
+      groupNameMustBeLowercase: 'Group name must be lowercase',
+      groupNameLimited: 'Group name is limited to: lowercase alphabet, digits, dashes, and periods',
+      tagNameNoSpaces: 'Tag name must contain no spaces',
+      hostNameLimited: 'Host name is limited to: lowercase alphabet, digits, dashes, and periods',
+      invalidHostIpOrCidr: 'Invalid Host IP or CIDR',
+      hostAlreadyExists: 'Host \"{name}\" already exists',
+      hostDoesNotExist: 'Host \'{name}\' does not exist',
+      hostNewAlreadyExists: 'Host \'{nameNew}\' already exists',
+      tagDoesNotExist: 'Tag \'{stripped}\' does not exist',
+      tagOldDoesNotExist: 'Tag \'{strippedOld}\' does not exist',
+      groupAlreadyExists: 'Group \'{stripped}\' already exists',
+      groupOldDoesNotExist: 'Group \'{strippedOld}\' does not exist',
+      groupDoesNotExist: 'Group \'{stripped}\' does not exist',
+      policyDoesNotExist: 'Policy does not exist at index \'{idx}\'',
+      policyCreated: 'Policy created',
+      noSshRulesDefined: 'No SSH Rules defined',
+      sshRuleDoesNotExist: 'SSH Rule does not exist at index \'{idx}\'',
+      savedAclConfiguration: 'Saved ACL Configuration',
+  },
     deploy: {
       title: 'Deploy',
       general: 'General:',
@@ -455,7 +497,6 @@ export const translations: Record<Language, Translation> = {
       acceptRoutesHelp: "Accept other nodes' advertised subnets",
       acceptExitNode: 'Exit Node',
       acceptExitNodeHelp: 'Use this node as a gateway (target node must advertise exit node)',
-      
       copyCommand: 'Copy Command to Clipboard',
       copiedToClipboard: 'Copied Command to Clipboard',
     },
@@ -509,15 +550,17 @@ export const translations: Record<Language, Translation> = {
       icmp: 'ICMP',
       add: '添加',
       membersOf: '成员',
-		selectMembersOf: '选择成员',
-		advertisedTags: '宣告标签',
-		userDeleted: '已删除用户 "{name}" (ID: {id})',
-		userDeleteFailed: '删除用户 "{name}" ({id}) 失败',
-		userDeleteFailedWithNodes: '删除用户 "{name}" ({id}) 失败。仍有节点存在。',
-		nodeDeleted: '已删除机器 "{name}" ({id})',
-		nodeDeleteFailed: '删除机器 "{name}" ({id}) 失败',
-		userNameNotEmpty: '用户名不能为空',
-		nodeNameNotEmpty: '节点名不能为空',
+      selectMembersOf: '选择成员',
+      advertisedTags: '宣告标签',
+      userDeleted: '已删除用户 "{name}" (ID: {id})',
+      userDeleteFailed: '删除用户 "{name}" ({id}) 失败',
+      userDeleteFailedWithNodes: '删除用户 "{name}" ({id}) 失败。仍有节点存在。',
+      nodeDeleted: '已删除机器 "{name}" ({id})',
+      nodeDeleteFailed: '删除机器 "{name}" ({id}) 失败',
+      userNameNotEmpty: '用户名不能为空',
+      nodeNameNotEmpty: '节点名不能为空',
+      copiedToClipboard: '已复制到剪贴板！',
+      failedToCopyToClipboard: '复制到剪贴板失败！',
 	},
     navigation: {
       home: '首页',
@@ -526,6 +569,7 @@ export const translations: Record<Language, Translation> = {
       deploy: '部署',
       routes: '路由',
       acls: '访问控制',
+      aclBuilder: '访问控制构建器',
       settings: '设置',
     },
     home: {
@@ -640,9 +684,27 @@ export const translations: Record<Language, Translation> = {
       hostNameConflict: '主机 \'{hostName}\' 与用户同名。<br />请重命名该主机。',
       policyDeleted: '策略 #\'{policyNumber}\' 已删除',
       sshRuleDeleted: 'SSH 规则 #\'{ruleNumber}\' 已删除',
-		tagRenamed: '标签已从 \'{oldName}\' 重命名为 \'{newName}\'',
-		tagDeleted: '标签 \'{tagName}\' 已删除',
-		unableToGetPolicy: '无法从服务器获取策略。',
+      tagRenamed: '标签已从 \'{oldName}\' 重命名为 \'{newName}\'',
+      tagDeleted: '标签 \'{tagName}\' 已删除',
+      unableToGetPolicy: '无法从服务器获取策略。',
+      groupNameMustBeLowercase: '组名必须为小写',
+      groupNameLimited: '组名限制为：小写字母、数字、连字符和句点',
+      tagNameNoSpaces: '标签名不能包含空格',
+      hostNameLimited: '主机名限制为：小写字母、数字、连字符和句点',
+      invalidHostIpOrCidr: '无效的主机 IP 或 CIDR',
+      hostAlreadyExists: '主机 \"{name}\" 已存在',
+      hostDoesNotExist: '主机 \'{name}\' 不存在',
+      hostNewAlreadyExists: '主机 \'{nameNew}\' 已存在',
+      tagDoesNotExist: '标签 \'{stripped}\' 不存在',
+      tagOldDoesNotExist: '标签 \'{strippedOld}\' 不存在',
+      groupAlreadyExists: '组 \'{stripped}\' 已存在',
+      groupOldDoesNotExist: '组 \'{strippedOld}\' 不存在',
+      groupDoesNotExist: '组 \'{stripped}\' 不存在',
+      policyDoesNotExist: '索引 \'{idx}\' 的策略不存在',
+      policyCreated: '策略已创建',
+      noSshRulesDefined: '未定义 SSH 规则',
+      sshRuleDoesNotExist: '索引 \'{idx}\' 的 SSH 规则不存在',
+      savedAclConfiguration: '已保存 ACL 配置',
     },
     deploy: {
       title: '部署',
@@ -687,7 +749,6 @@ export const translations: Record<Language, Translation> = {
       acceptRoutesHelp: '接受其他节点的宣告子网',
       acceptExitNode: '出口节点',
       acceptExitNodeHelp: '使用此节点作为网关（目标节点必须宣告出口节点）',
-      
       copyCommand: '复制命令到剪贴板',
       copiedToClipboard: '命令已复制到剪贴板',
     },

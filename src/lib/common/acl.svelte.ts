@@ -3,6 +3,8 @@ import { isValidCIDR, isValidIP, toastError, toastSuccess } from "$lib/common/fu
 import { setPolicy } from './api'
 import type { ToastStore } from '@skeletonlabs/skeleton'
 import { debug } from './debug'
+import { getTranslation } from './locales'
+import { App } from '$lib/States.svelte'
 
 export type TagOwners = string[]
 export type TagOwnersTyped = { users: string[], groups: string[] }
@@ -176,10 +178,10 @@ export class ACLBuilder implements ACL {
     static validateGroupName(name: string): string {
         name = this.stripPrefix(name)
         if (name.toLowerCase() !== name) {
-            throw new Error("Group name must be lowercase")
+            throw new Error(getTranslation(App.language.value, 'acls.groupNameMustBeLowercase'))
         }
         if (!RegexGroupName.test(name)) {
-            throw new Error("Group name is limited to: lowercase alphabet, digits, dashes, and periods")
+            throw new Error(getTranslation(App.language.value, 'acls.groupNameLimited'))
         }
         return name
     }
@@ -188,7 +190,7 @@ export class ACLBuilder implements ACL {
     static validateTagName(name: string): string {
         name = this.stripPrefix(name)
         if (!RegexTagName.test(name)) {
-            throw new Error("Tag name must contain no spaces")
+            throw new Error(getTranslation(App.language.value, 'acls.tagNameNoSpaces'))
         }
         return name
     }
@@ -197,7 +199,7 @@ export class ACLBuilder implements ACL {
     static validateHostName(name: string): string {
         name = name.toLowerCase()
         if (!RegexHostName.test(name)) {
-            throw new Error("Host name is limited to: lowercase alphabet, digits, dashes, and periods")
+            throw new Error(getTranslation(App.language.value, 'acls.hostNameLimited'))
         }
         return name
     }
@@ -209,7 +211,7 @@ export class ACLBuilder implements ACL {
         if(isValidCIDR(value)) {
             return value
         }
-        throw new Error("Invalid Host IP or CIDR")
+        throw new Error(getTranslation(App.language.value, 'acls.invalidHostIpOrCidr'))
     }
 
     // deep clone of current ACL
@@ -233,7 +235,7 @@ export class ACLBuilder implements ACL {
 
     createHost(name: string, cidr: string) {
         if(this.getHostCIDR(name) !== undefined) {
-            throw new Error(`host "${name}" already exists`)
+            throw new Error(getTranslation(App.language.value, 'acls.hostAlreadyExists', { name }))
         }
         this.setHost(name, cidr)
     }
@@ -252,10 +254,10 @@ export class ACLBuilder implements ACL {
         nameOld = ACLBuilder.validateHostName(nameOld)
         nameNew = ACLBuilder.validateHostName(nameNew)
         if (this.hosts[nameOld] === undefined) {
-            throw new Error(`Host '${nameOld}' does not exist`)
+            throw new Error(getTranslation(App.language.value, 'acls.hostDoesNotExist', { name: nameOld }))
         }
         if (this.hosts[nameNew] !== undefined) {
-            throw new Error(`Host '${nameNew}' already exists`)
+            throw new Error(getTranslation(App.language.value, 'acls.hostNewAlreadyExists', { nameNew }))
         }
 
         const hosts: AclHosts = {}
@@ -280,7 +282,7 @@ export class ACLBuilder implements ACL {
 
     deleteHost(name: string) {
         if (this.hosts[name] === undefined) {
-            throw new Error(`Host '${name}' doesn't exist`)
+            throw new Error(getTranslation(App.language.value, 'acls.hostDoesNotExist', { name }))
         }
 
         delete this.hosts[name]
@@ -331,7 +333,7 @@ export class ACLBuilder implements ACL {
         }
 
         if (this.tagOwners[prefixedOld] === undefined) {
-            throw new Error(`Tag '${strippedOld}' doesn't exist`)
+            throw new Error(getTranslation(App.language.value, 'acls.tagOldDoesNotExist', { strippedOld }))
         }
 
         const tagOwners: AclTagOwners = {}
@@ -369,7 +371,7 @@ export class ACLBuilder implements ACL {
         const { stripped, prefixed } = ACLBuilder.normalizePrefix(name, 'tag')
         const owners = this.tagOwners[prefixed] 
         if (owners === undefined) {
-            throw new Error(`Tag ${stripped} does not exist`)
+            throw new Error(getTranslation(App.language.value, 'acls.tagDoesNotExist', { stripped }))
         }
         return owners
     }
@@ -396,7 +398,7 @@ export class ACLBuilder implements ACL {
         const { stripped, prefixed } = ACLBuilder.normalizePrefix(name, 'tag')
         const owners = this.tagOwners[prefixed]
         if (owners === undefined) {
-            throw new Error(`Tag ${stripped} does not exist`)
+            throw new Error(getTranslation(App.language.value, 'acls.tagDoesNotExist', { stripped }))
         }
         return ACLBuilder.TagOwnersByType(owners)
     }
@@ -447,7 +449,7 @@ export class ACLBuilder implements ACL {
         const { stripped, prefixed } = ACLBuilder.normalizePrefix(name, 'group')
 
         if (this.groups[prefixed] !== undefined) {
-            throw new Error(`Group '${stripped}' already exists`)
+            throw new Error(getTranslation(App.language.value, 'acls.groupAlreadyExists', { stripped }))
         }
 
         this.groups[prefixed] = []
@@ -464,7 +466,7 @@ export class ACLBuilder implements ACL {
         }
 
         if (this.groups[prefixedOld] === undefined) {
-            throw new Error(`Group '${strippedOld}' doesn't exist`)
+            throw new Error(getTranslation(App.language.value, 'acls.groupOldDoesNotExist', { strippedOld }))
         }
 
         const groups: AclGroups = {}
@@ -526,7 +528,7 @@ export class ACLBuilder implements ACL {
 
         // verify group's existence
         if (this.groups[prefixed] === undefined) {
-            throw new Error(`Group '${stripped}' doesn't exist`)
+            throw new Error(getTranslation(App.language.value, 'acls.groupDoesNotExist', { stripped }))
         }
 
         // remove group from tag owners
@@ -592,7 +594,7 @@ export class ACLBuilder implements ACL {
 
     private validatePolicyIndex(idx: number) {
         if (idx >= this.acls.length || idx < 0) {
-            throw new Error(`Policy does not exist at index '${idx}'`)
+            throw new Error(getTranslation(App.language.value, 'acls.policyDoesNotExist', { idx: idx.toString() }))
         }
     }
 
@@ -675,7 +677,7 @@ export class ACLBuilder implements ACL {
         if (this.ssh !== undefined){
             return this.ssh[idx]
         }
-        throw new Error("No SSH Rules defined")
+        throw new Error(getTranslation(App.language.value, 'acls.noSshRulesDefined'))
     }
 
     private validateSshRuleIndex(idx: number) {
