@@ -6,6 +6,7 @@
 	import { base } from '$app/paths';
 	import { goto } from '$app/navigation';
 	import { isExpired } from '$lib/common/funcs';
+	import Translate from '$lib/common/Translate.svelte';
 
 	import RawMdiDevices from '~icons/mdi/devices';
 	import RawMdiRouter from '~icons/mdi/devices';
@@ -24,14 +25,14 @@
 	const summaries = $derived<Summary[]>(
 		[
 			{
-				title: 'Total Users',
+				title: 'home.totalUsers',
 				border: 'border-primary-700 dark:border-primary-600',
 				icon: RawMdiUser,
 				value: App.users.value.length,
 				path: '/users',
 			},
 			{
-				title: 'Online Users',
+				title: 'home.onlineUsers',
 				border: 'border-primary-500 dark:border-primary-400',
 				icon: RawMdiUser,
 				value: App.users.value.filter((user) =>
@@ -42,7 +43,7 @@
 				path: '/users',
 			},
 			{
-				title: 'Valid PreAuth Keys',
+				title: 'home.validPreAuthKeys',
 				border: 'border-slate-700 dark:border-slate-500',
 				icon: RawMdiDevices,
 				value: App.preAuthKeys.value.filter(
@@ -51,21 +52,21 @@
 				path: '/users',
 			},
 			{
-				title: 'Total Nodes',
+				title: 'home.totalNodes',
 				border: 'border-secondary-700 dark:border-secondary-600',
 				icon: RawMdiDevices,
 				value: App.nodes.value.length,
 				path: '/nodes',
 			},
 			{
-				title: 'Online Nodes',
+				title: 'home.onlineNodes',
 				border: 'border-secondary-400 dark:border-secondary-400',
 				icon: RawMdiDevices,
 				value: App.nodes.value.filter((n) => n.online).length,
 				path: '/nodes',
 			},
 			{
-				title: 'Total Routes',
+				title: 'home.totalRoutes',
 				border: 'border-warning-600 dark:border-warning-600',
 				icon: RawMdiRouter,
 				value: App.nodes.value.reduce(
@@ -79,7 +80,7 @@
 </script>
 
 <Page>
-	<PageHeader title="Home" />
+	<PageHeader title="navigation.home" />
 
 	<CardTilePage>
 		{#each summaries as summary}
@@ -100,10 +101,10 @@
 					</div>
 				</div>
 				<div class="flex justify-around items-center">
-					<div class="text-small flex items-center font-bold">
-						{summary.title}
-					</div>
+				<div class="text-small flex items-center font-bold">
+					<Translate key={summary.title} />
 				</div>
+			</div>
 			</CardTileContainer>
 		{/each}
 	</CardTilePage>

@@ -5,6 +5,7 @@
 	import NodeInfo from '$lib/cards/node/NodeInfo.svelte';
 	import Navigation from '$lib/Navigation.svelte';
 	import { App } from '$lib/States.svelte';
+	import { getTranslation } from '$lib/common/locales';
 
 	const drawerStore = getDrawerStore();
 
@@ -23,7 +24,7 @@
 			</DrawerEntry>
 		{/if}
 		{#if $drawerStore?.id?.startsWith('navDrawer')}
-			<DrawerEntry title="Navigation">
+			<DrawerEntry title={getTranslation(App.language.value, 'common.navigation')}>
 				<Navigation />
 			</DrawerEntry>
 		{/if}

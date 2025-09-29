@@ -14,6 +14,7 @@
 	import OnlineNodeIndicator from '$lib/parts/OnlineNodeIndicator.svelte';
 	import OnlineUserIndicator from '$lib/parts/OnlineUserIndicator.svelte';
 	import { App } from '$lib/States.svelte';
+	import { getTranslation } from '$lib/common/locales';
 
 	type NodeTileCardProps = {
 		node: Node,
@@ -52,28 +53,28 @@
 			{node.givenName}
 		</div>
 	</div>
-	<CardTileEntry title="Created:">
+	<CardTileEntry title={getTranslation(App.language.value, 'common.created') + ':'}>
 		{dateToStr(node.createdAt)}
 	</CardTileEntry>
-	<CardTileEntry title="Last Seen:">
+	<CardTileEntry title={getTranslation(App.language.value, 'common.lastSeen') + ':'}>
 		{#if node.online}
 			Online Now
 		{:else}
 			{lastSeen}
 		{/if}
 	</CardTileEntry>
-	<CardTileEntry title="User:">
+	<CardTileEntry title={getTranslation(App.language.value, 'common.user') + ':'}>
 		<div class="flex flex-row gap-3 items-center">
 			{node.user.name}
 			<OnlineUserIndicator bind:user={node.user} />
 		</div>
 	</CardTileEntry>
-	<CardTileEntry title="IPv4 Address:">
+	<CardTileEntry title={getTranslation(App.language.value, 'common.ipv4Address') + ':'}>
 		<div class="flex flex-row gap-3 items-center">
 			{node.ipAddresses.filter((s) => /^\d+\.\d+\.\d+\.\d+$/.test(s)).at(0)}
 		</div>
 	</CardTileEntry>
-	<CardTileEntry title="Routes:">
+	<CardTileEntry title={getTranslation(App.language.value, 'common.routes') + ':'}>
 		{routeCount}
 	</CardTileEntry>
 	<hr style="background-color: #{color}" class="w-full h-0.5 mx-auto my-4 border-0 rounded" />

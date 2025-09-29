@@ -6,6 +6,8 @@
 	import CardListPage from '$lib/cards/CardListPage.svelte';
 	import GroupListCard from '$lib/cards/acl/GroupListCard.svelte';
 	import RawMdiSave from '~icons/mdi/content-save-outline'
+	import { getTranslation } from '$lib/common/locales';
+	import { App } from '$lib/States.svelte';
 
 	import NewItem from '$lib/parts/NewItem.svelte';
 
@@ -64,7 +66,7 @@
 				<RawMdiSave />
 			</button>
 			<button class="btn-sm rounded-md variant-filled-success" onclick={toggleShowCreateGroup}>
-				Create Group
+				{getTranslation(App.language.value, 'acls.createGroup')}
 			</button>
 		</div>
 		{#if showCreateGroup}
@@ -82,7 +84,7 @@
 			autocomplete="off"
 			type="text"
 			class="input rounded-md text-sm mb-0"
-			placeholder="Filter Groups..."
+			placeholder={getTranslation(App.language.value, 'acls.filterGroups')}
 			bind:value={groupsFilterString}
 		/>
 	</div>

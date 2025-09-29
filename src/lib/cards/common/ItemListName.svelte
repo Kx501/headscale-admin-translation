@@ -11,6 +11,7 @@
 	import { getToastStore } from '@skeletonlabs/skeleton';
 	import { debug } from '$lib/common/debug';
 	import { App } from '$lib/States.svelte';
+	import { getTranslation } from '$lib/common/locales';
 
 	type ItemListNameProps = {
 		item: Named,
@@ -32,7 +33,7 @@
 	const ToastStore = getToastStore();
 </script>
 
-<CardListEntry title="Name:">
+<CardListEntry title={getTranslation(App.language.value, 'common.name') + ':'}>
 	<div class="grid text-right overlap-children">
 		{#if showRename}
 			<div
@@ -57,42 +58,44 @@
 								disableRename = true;
 								try {
 									switch (prefix) {
-										case 'user':
-											if(newName === ''){
-												toastError('User name must not be empty', ToastStore)
-												return
-											}
-											if (isUser(item)) {
-												const oldName = item.name
-												const u = await renameUser(item, newName);
-												for (let i = 0; i < App.users.value.length; i++) {
-													if (App.users.value[i].id == u.id) {
-														App.users.value[i].name = u.name;
-														break;
-													}
-												}
-												for (let i = 0; i < App.preAuthKeys.value.length; i++) {
-													if (App.preAuthKeys.value[i].user.name === oldName) {
-														App.preAuthKeys.value[i].user.name = u.name;
-														break;
-													}
-												}
-											}
-										case 'node':
-											if(newName === ''){
-												toastError('Node name must not be empty', ToastStore)
-												return
-											}
-											if (isNode(item)) {
-												const m = await renameNode(item, newName);
-												for (let i = 0; i < App.nodes.value.length; i++) {
-													if (App.nodes.value[i].id == m.id) {
-														App.nodes.value[i].givenName = m.givenName;
-														break;
-													}
-												}
-											}
+						case 'user':
+							if(newName === ''){
+								toastError(getTranslation(App.language.value, 'common.userNameNotEmpty'), ToastStore)
+								return
+							}
+							if (isUser(item)) {
+								const oldName = item.name
+								const u = await renameUser(item, newName);
+								for (let i = 0; i < App.users.value.length; i++) {
+									if (App.users.value[i].id == u.id) {
+										App.users.value[i].name = u.name;
+										break;
 									}
+								}
+								for (let i = 0; i < App.preAuthKeys.value.length; i++) {
+									if (App.preAuthKeys.value[i].user.name === oldName) {
+										App.preAuthKeys.value[i].user.name = u.name;
+										break;
+									}
+								}
+							}
+							break;
+						case 'node':
+							if(newName === ''){
+								toastError(getTranslation(App.language.value, 'common.nodeNameNotEmpty'), ToastStore)
+								return
+							}
+							if (isNode(item)) {
+								const m = await renameNode(item, newName);
+								for (let i = 0; i < App.nodes.value.length; i++) {
+									if (App.nodes.value[i].id == m.id) {
+										App.nodes.value[i].givenName = m.givenName;
+										break;
+									}
+								}
+							}
+							break;
+					}
 									showRename = false;
 								} catch (error) {
 									if (error instanceof Error) {

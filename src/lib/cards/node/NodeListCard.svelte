@@ -6,6 +6,8 @@
 	import CardListEntry from '../CardListEntry.svelte';
 	import NodeInfo from './NodeInfo.svelte';
 	import OnlineNodeIndicator from '$lib/parts/OnlineNodeIndicator.svelte';
+	import { getTranslation } from '$lib/common/locales';
+	import { App } from '$lib/States.svelte';
 
 	type NodeListCardProps = {
 		node: Node,
@@ -28,8 +30,8 @@
 	</svelte:fragment>
 	<svelte:fragment slot="summary">
 		<div class="grid">
-			<CardListEntry title="ID: {node.id}">
-				<span class="font-bold">{node.givenName}</span>
+			<CardListEntry title={getTranslation(App.language.value, 'common.id') + ': ' + node.id}>
+			<span class="font-bold">{node.givenName}</span>
 			</CardListEntry>
 		</div>
 	</svelte:fragment>

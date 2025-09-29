@@ -9,6 +9,7 @@
 	import { toastError, toastSuccess } from '$lib/common/funcs';
 	import Delete from '$lib/parts/Delete.svelte';
 	import { App } from '$lib/States.svelte';
+	import { getTranslation } from '$lib/common/locales';
 
 	type ItemDeleteProps = {
 		item: Named,
@@ -33,22 +34,22 @@
 
 		if (isUser(item)) {
 			if (await deleteUser(item)) {
-				toastSuccess(`Deleted User "${name}" (ID: ${id})`, ToastStore);
+				toastSuccess(getTranslation(App.language.value, 'common.userDeleted', { name, id }), ToastStore);
 				DrawerStore.close()
 			} else {
-				let msg = `Failed to Delete User "${name}" (${id}).`;
+				let msg = getTranslation(App.language.value, 'common.userDeleteFailed', { name, id });
 				if(App.nodes.value.some((node) => node.user.id === item.id)){
-					msg += " Still has nodes."
+					msg = getTranslation(App.language.value, 'common.userDeleteFailedWithNodes', { name, id });
 				}
 				toastError(msg, ToastStore);
 			}
 		}
 		if (isNode(item)) {
 			if (await deleteNode(item)) {
-				toastSuccess(`Deleted machine "${name}" (${id})`, ToastStore);
+				toastSuccess(getTranslation(App.language.value, 'common.nodeDeleted', { name, id }), ToastStore);
 				DrawerStore.close()
 			} else {
-				toastError(`Failed to Delete Nachine "${name}" (${id})`, ToastStore);
+				toastError(getTranslation(App.language.value, 'common.nodeDeleteFailed', { name, id }), ToastStore);
 			}
 		}
 	}

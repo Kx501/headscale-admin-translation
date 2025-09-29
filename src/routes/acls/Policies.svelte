@@ -5,6 +5,8 @@
 	import { toastSuccess } from '$lib/common/funcs';
 	import CardListPage from '$lib/cards/CardListPage.svelte';
 	import RawMdiSave from '~icons/mdi/content-save-outline'
+	import { getTranslation } from '$lib/common/locales';
+	import { App } from '$lib/States.svelte';
 
 	import PolicyListCard from '$lib/cards/acl/PolicyListCard.svelte';
 
@@ -68,7 +70,7 @@
 				<RawMdiSave />
 			</button>
 			<button class="btn-sm rounded-md variant-filled-success" onclick={newPolicy}>
-				Create Policy
+				{getTranslation(App.language.value, 'acls.createPolicy')}
 			</button>
 		</div>
 	</div>
@@ -78,7 +80,7 @@
 			autocomplete="off"
 			type="text"
 			class="input rounded-md text-sm mb-0"
-			placeholder="Filter Policies..."
+			placeholder={getTranslation(App.language.value, 'acls.filterPolicies')}
 			bind:value={policyFilterString}
 		/>
 	</div>

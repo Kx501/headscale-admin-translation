@@ -8,6 +8,7 @@
 	import { debug } from '$lib/common/debug';
 	import { App } from '$lib/States.svelte';
 	import RawMdiSave from '~icons/mdi/content-save-outline'
+	import { getTranslation } from '$lib/common/locales';
 
 	const ToastStore = getToastStore();
 
@@ -69,7 +70,7 @@
 				<RawMdiSave />
 			</button>
 			<button class="btn-sm rounded-md variant-filled-success" onclick={toggleShowCreateHost}>
-				Create Host
+				{getTranslation(App.language.value, 'acls.createHost')}
 			</button>
 		</div>
 		{#if showCreateHost}
@@ -90,7 +91,7 @@
 			autocomplete="off"
 			type="text"
 			class="input rounded-md text-sm mb-0"
-			placeholder="Filter Hosts..."
+			placeholder={getTranslation(App.language.value, 'acls.filterHosts')}
 			bind:value={hostsFilter}
 		/>
 	</div>

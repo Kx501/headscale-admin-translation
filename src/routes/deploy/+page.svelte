@@ -16,6 +16,8 @@
 	import { slide } from 'svelte/transition';
 
 	import { App } from '$lib/States.svelte';
+	import Translate from '$lib/common/Translate.svelte';
+	import { getTranslation } from '$lib/common/locales';
 
 	const ToastStore = getToastStore();
 
@@ -64,7 +66,7 @@
 </script>
 
 <Page>
-	<PageHeader title="Deploy" buttonText={''} show={true}>
+	<PageHeader title="navigation.deploy" buttonText={''} show={true}>
 		{#snippet button()}
 			<button
 				class="bg-gray-400/30 dark:bg-gray-800/70 border border-dashed border-slate-200 border-1 pr-0 pl-4 rounded-lg justify-start text-left w-[90%]"
@@ -78,43 +80,43 @@
 	</PageHeader>
 
 	<div class="grid grid-cols-12">
-		<p class="text-xl col-span-12">General:</p>
+		<p class="text-xl col-span-12"><Translate key="deploy.general" /></p>
 		<DeployCheck
 			bind:checked={deployment.shieldsUp}
-			name="Shields Up"
-			help="Block incoming connections"
+			name={getTranslation(App.language.value, 'deploy.shieldsUp')}
+			help={getTranslation(App.language.value, 'deploy.shieldsUpHelp')}
 		/>
 		<DeployCheck
 			bind:checked={deployment.generateQR}
-			name="Generate QR Code"
-			help="Create a scannable QR code to import into TailScale client"
+			name={getTranslation(App.language.value, 'deploy.generateQR')}
+			help={getTranslation(App.language.value, 'deploy.generateQRHelp')}
 		/>
 		<DeployCheck
 			bind:checked={deployment.reset}
-			name="Reset"
-			help="Reset unspecified settings to default values"
+			name={getTranslation(App.language.value, 'deploy.reset')}
+			help={getTranslation(App.language.value, 'deploy.resetHelp')}
 		/>
 		<DeployCheck
 			bind:checked={deployment.operator}
-			name="Operator"
-			help="(Unix Only) Run as a different user"
+			name={getTranslation(App.language.value, 'deploy.operator')}
+			help={getTranslation(App.language.value, 'deploy.operatorHelp')}
 		>
 			<input type="text" class="input text-sm rounded-md" bind:value={deployment.operatorValue} />
 		</DeployCheck>
 		<DeployCheck
 			bind:checked={deployment.forceReauth}
-			name="Force Reauthentication"
-			help="Force user to re-authenticate to Headscale server"
+			name={getTranslation(App.language.value, 'deploy.forceReauth')}
+			help={getTranslation(App.language.value, 'deploy.forceReauthHelp')}
 		/>
 		<DeployCheck
 			bind:checked={deployment.sshServer}
-			name="SSH Server"
-			help="Run a local SSH server accessible by administrators"
+			name={getTranslation(App.language.value, 'deploy.sshServer')}
+			help={getTranslation(App.language.value, 'deploy.sshServerHelp')}
 		/>
 		<DeployCheck
 			bind:checked={deployment.usePreAuthKey}
-			name="PreAuth Key"
-			help="A generated key to automatically authenticate the node for a given user"
+			name={getTranslation(App.language.value, 'deploy.preAuthKey')}
+			help={getTranslation(App.language.value, 'deploy.preAuthKeyHelp')}
 		>
 			<div class="flex flex-col gap-2">
 				<select bind:value={deployment.preAuthKeyUser} class="input rounded-md">
@@ -139,25 +141,25 @@
 		</DeployCheck>
 		<DeployCheck
 			bind:checked={deployment.unattended}
-			name="Unattended"
-			help="Run the tailscale client in unattended mode (on startup)"
+			name={getTranslation(App.language.value, 'deploy.unattended')}
+			help={getTranslation(App.language.value, 'deploy.unattendedHelp')}
 		/>
 		<DeployCheck 
 			bind:checked={deployment.advertiseExitNodeLocalAccess}
-			name="Allow LAN Access"
-			help="Allow local network access while connected to the TailNet and using an exit node"
+			name={getTranslation(App.language.value, 'deploy.allowLanAccess')}
+			help={getTranslation(App.language.value, 'deploy.allowLanAccessHelp')}
 		/>
 
-		<p class="text-xl col-span-12 py-4">Advertise:</p>
+		<p class="text-xl col-span-12 py-4"><Translate key="deploy.advertise" /></p>
 		<DeployCheck
 			bind:checked={deployment.advertiseExitNode}
-			name="Advertise Exit Node"
-			help="Allow other nodes on the TailNet to use this node as a gateway"
+			name={getTranslation(App.language.value, 'deploy.advertiseExitNode')}
+			help={getTranslation(App.language.value, 'deploy.advertiseExitNodeHelp')}
 		/>
 		<DeployCheck
 			bind:checked={deployment.advertiseTags}
-			name="Advertise Tags"
-			help="List of advertised tags to apply to a machine on provisioning"
+			name={getTranslation(App.language.value, 'deploy.advertiseTags')}
+			help={getTranslation(App.language.value, 'deploy.advertiseTagsHelp')}
 		>
 			<InputChip
 				name="advertiseRoutesValues"
@@ -170,8 +172,8 @@
 		</DeployCheck>
 		<DeployCheck
 			bind:checked={deployment.advertiseRoutes}
-			name="Advertise Routes"
-			help="List of subnets which are reachable via this node"
+			name={getTranslation(App.language.value, 'deploy.advertiseRoutes')}
+			help={getTranslation(App.language.value, 'deploy.advertiseRoutesHelp')}
 		>
 			<InputChip
 				name="advertiseRoutesValues"
@@ -183,21 +185,21 @@
 			/>
 		</DeployCheck>
 
-		<p class="text-xl col-span-12 py-4">Accept:</p>
+		<p class="text-xl col-span-12 py-4"><Translate key="deploy.accept" /></p>
 		<DeployCheck
 			bind:checked={deployment.acceptDns}
-			name="Accept DNS"
-			help="Accept the HeadScale-provided DNS settings"
+			name={getTranslation(App.language.value, 'deploy.acceptDns')}
+			help={getTranslation(App.language.value, 'deploy.acceptDnsHelp')}
 		/>
 		<DeployCheck
 			bind:checked={deployment.acceptRoutes}
-			name="Accept Routes"
-			help="Accept other nodes' advertised subnets"
+			name={getTranslation(App.language.value, 'deploy.acceptRoutes')}
+			help={getTranslation(App.language.value, 'deploy.acceptRoutesHelp')}
 		/>
 		<DeployCheck
 			bind:checked={deployment.acceptExitNode}
-			name="Exit Node"
-			help="Use this node as a gateway (target node must advertise exit node)"
+			name={getTranslation(App.language.value, 'deploy.acceptExitNode')}
+			help={getTranslation(App.language.value, 'deploy.acceptExitNodeHelp')}
 		>
 			<label class="label">
 				<select class="select" bind:value={deployment.acceptExitNodeValue}>
@@ -214,6 +216,6 @@
 			App.saveDeploymentDefaults(deployment)
 			toastSuccess('Saved Deployment Defaults', ToastStore)
 		}}>
-			Save Defaults
+			<Translate key="deploy.saveDefaults" />
 		</button>
 </Page>

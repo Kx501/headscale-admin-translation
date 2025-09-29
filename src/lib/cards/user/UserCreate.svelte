@@ -2,6 +2,7 @@
 	import { createUser } from '$lib/common/api';
 	import { toastError, toastSuccess, focus } from '$lib/common/funcs';
 	import { App } from '$lib/States.svelte';
+	import { getTranslation } from '$lib/common/locales';
 	import { getToastStore } from '@skeletonlabs/skeleton';
 	import RawMdiCheckCircleOutline from '~icons/mdi/check-circle-outline';
 	
@@ -40,7 +41,7 @@
 		<input
 			class="input rounded-md w-full md:w-1/2 lg:w-1/3"
 			type="text"
-			placeholder="New Username..."
+			placeholder={getTranslation(App.language.value, 'users.newUsername')}
 			disabled={loading}
 			bind:value={username}
 			use:focus

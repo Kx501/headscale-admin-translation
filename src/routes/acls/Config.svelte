@@ -7,6 +7,8 @@
 	import { debug } from "$lib/common/debug";
 	import { toastError, toastSuccess } from "$lib/common/funcs";
 	import { CodeBlock, /*getModalStore,*/ getToastStore, modeCurrent, type ModalSettings } from "@skeletonlabs/skeleton";
+    import { getTranslation } from '$lib/common/locales';
+	import { App } from '$lib/States.svelte';
     
 	// import LoaderModal from "$lib/parts/LoaderModal.svelte";
     import JWCC from 'json5'
@@ -83,10 +85,10 @@
 		<button disabled={loading || editing} class="btn-sm rounded-md variant-filled-success disabled:opacity-50 w-32" onclick={() => { 
             saveConfig(acl, ToastStore, {setLoadingTrue: () => { loading = true}, setLoadingFalse: ()=> { loading = false }})
         }}>
-			Save Config
+			{getTranslation(App.language.value, 'acls.saveConfig')}
 		</button>
 		<button disabled={loading || editing} class="btn-sm rounded-md variant-filled-secondary disabled:opacity-50 w-32" onclick={() => { loadConfig() }}>
-			Load Config
+			{getTranslation(App.language.value, 'acls.loadConfig')}
 		</button>
 		<button 
             disabled={loading}
@@ -101,18 +103,18 @@
             }}
         >
             {#if editing}
-                Apply Config
+                {getTranslation(App.language.value, 'acls.applyConfig')}
             {:else}
-                Edit Config
+                {getTranslation(App.language.value, 'acls.editConfig')}
             {/if}
 		</button>
         {#if editing}
             <button disabled={loading} class="btn-sm rounded-md variant-filled-error disabled:opacity-50 w-32" onclick={() => { editing = false }}>
-                Cancel Editing
+                {getTranslation(App.language.value, 'acls.cancelEditing')}
             </button>
         {:else}
             <button disabled={loading || editing} class="btn-sm rounded-md variant-filled-error disabled:opacity-50 w-32" onclick={() => { resetConfig() }}>
-                Reset Config
+                {getTranslation(App.language.value, 'acls.resetConfig')}
             </button>
         {/if}
 		<!--button disabled={loading} class="btn-sm rounded-md variant-filled-success" onclick={() => { if(aclEditJSON !== undefined) applyConfig(aclEditJSON) }}>

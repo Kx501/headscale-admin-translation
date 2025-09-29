@@ -7,6 +7,8 @@
 	import TagOwnerListCard from '$lib/cards/acl/TagOwnerListCard.svelte';
 	import NewItem from '$lib/parts/NewItem.svelte';
 	import RawMdiSave from '~icons/mdi/content-save-outline'
+	import { getTranslation } from '$lib/common/locales';
+	import { App } from '$lib/States.svelte';
 
 	const ToastStore = getToastStore();
 
@@ -59,7 +61,7 @@
 				<RawMdiSave />
 			</button>
 			<button class="btn-sm rounded-md variant-filled-success" onclick={toggleShowCreateTag}>
-				Create Tag
+				{getTranslation(App.language.value, 'acls.createTag')}
 			</button>
 		</div>
 		{#if showCreateTag}
@@ -79,7 +81,7 @@
 			autocomplete="off"
 			type="text"
 			class="input rounded-md text-sm mb-0"
-			placeholder="Filter Tags..."
+			placeholder={getTranslation(App.language.value, 'acls.filterTags')}
 			bind:value={tagsFilter}
 		/>
 	</div>

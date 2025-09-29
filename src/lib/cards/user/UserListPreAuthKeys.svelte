@@ -1,15 +1,16 @@
 <script lang="ts">
 	import CardListEntry from '../CardListEntry.svelte';
-	// import CardSeparator from '../CardSeparator.svelte';
-	import RawMdiCheckCircleOutline from '~icons/mdi/check-circle-outline';
-	import RawMdiCloseCircleOutline from '~icons/mdi/close-circle-outline';
-	import UserListPreAuthKey from '$lib/cards/user/UserListPreAuthKey.svelte';
-	import type { PreAuthKey, User } from '$lib/common/types';
-	import { slide } from 'svelte/transition';
-	import { createPreAuthKey } from '$lib/common/api';
-	import { debug } from '$lib/common/debug';
-	import CardSeparator from '../CardSeparator.svelte';
-	import { App } from '$lib/States.svelte';
+// import CardSeparator from '../CardSeparator.svelte';
+import RawMdiCheckCircleOutline from '~icons/mdi/check-circle-outline';
+import RawMdiCloseCircleOutline from '~icons/mdi/close-circle-outline';
+import UserListPreAuthKey from '$lib/cards/user/UserListPreAuthKey.svelte';
+import type { PreAuthKey, User } from '$lib/common/types';
+import { slide } from 'svelte/transition';
+import { createPreAuthKey } from '$lib/common/api';
+import { debug } from '$lib/common/debug';
+import CardSeparator from '../CardSeparator.svelte';
+import { App } from '$lib/States.svelte';
+import { getTranslation } from '$lib/common/locales';
 
 	type UserListPreAuthKeysProps = {
 		user: User,
@@ -17,7 +18,7 @@
 	}
 	let {
 		user = $bindable(),
-		title = 'PreAuth Keys:',
+		title = getTranslation(App.language.value, 'users.preAuthKeys') + ':',
 	}: UserListPreAuthKeysProps = $props();
 
 	let hideInvalid = $state(true);
@@ -58,7 +59,7 @@
 	<div class="grid grid-cols-12">
 		<div class="flex col-span-12 justify-end items-center">
 			<input class="checkbox mx-0 pr-1" type="checkbox" bind:checked={hideInvalid} />
-			<p class="ml-1 md:ml-2 text-xs">Hide Invalid</p>
+			<p class="ml-1 md:ml-2 text-xs">{getTranslation(App.language.value, 'users.hideInvalid')}</p>
 			<button
 				disabled={disableCreate}
 				type="button"
@@ -72,7 +73,7 @@
 					}
 				}}
 			>
-				Create
+				{getTranslation(App.language.value, 'common.create')}
 			</button>
 		</div>
 		{#if showCreate}
@@ -131,7 +132,7 @@
 								type="checkbox"
 								bind:checked={checked.ephemeral}
 							/>
-							<p>Ephemeral</p>
+							<p>{getTranslation(App.language.value, 'users.ephemeral')}</p>
 						</label>
 						<label class="flex items-center space-x-2 py-2">
 							<input
@@ -140,7 +141,7 @@
 								type="checkbox"
 								bind:checked={checked.reusable}
 							/>
-							<p>Reusable</p>
+							<p>{getTranslation(App.language.value, 'users.reusable')}</p>
 						</label>
 					</div>
 				</div>

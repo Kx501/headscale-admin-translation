@@ -10,6 +10,8 @@
 	import { getSortedFilteredNodes } from '$lib/common/funcs';
 	import { App } from '$lib/States.svelte';
 	import FilterOnlineBtn from '$lib/parts/FilterOnlineBtn.svelte';
+	import Translate from '$lib/common/Translate.svelte';
+	import { getTranslation } from '$lib/common/locales';
 
 	// Sort & Filter
 	let sortMethod = $state('id');
@@ -35,7 +37,7 @@
 </script>
 
 <Page>
-	<PageHeader title="Routes" layout={App.layoutRoute} bind:filterString buttonText={""}>
+	<PageHeader title="navigation.routes" layout={App.layoutRoute} bind:filterString buttonText={""}>
 		{#snippet button()}
 			x
 		{/snippet}
@@ -44,15 +46,15 @@
 	<div
 		class="btn-group px-0 mx-0 py-0 my-0 rounded-md variant-ghost-secondary [&>*+*]:border-primary-500"
 	>
-		<SortBtn bind:value={sortMethod} direction={sortDirection} name="ID" {toggle} />
-		<SortBtn bind:value={sortMethod} direction={sortDirection} name="Name" {toggle} />
+		<SortBtn bind:value={sortMethod} direction={sortDirection} name={getTranslation(App.language.value, 'routes.sortId')} {toggle} />
+		<SortBtn bind:value={sortMethod} direction={sortDirection} name={getTranslation(App.language.value, 'routes.sortName')} {toggle} />
 	</div>
 	<div
 		class="btn-group ml-2 px-0 mx-0 py-0 my-0 rounded-md variant-ghost-secondary [&>*+*]:border-primary-500"
 	>
-		<FilterOnlineBtn bind:value={filterOnlineStatus} status="all" name="All" />
-		<FilterOnlineBtn bind:value={filterOnlineStatus} status="online" name="Online" />
-		<FilterOnlineBtn bind:value={filterOnlineStatus} status="offline" name="Offline" />
+		<FilterOnlineBtn bind:value={filterOnlineStatus} status="all" name={getTranslation(App.language.value, 'routes.filterAll')} />
+		<FilterOnlineBtn bind:value={filterOnlineStatus} status="online" name={getTranslation(App.language.value, 'routes.filterOnline')} />
+		<FilterOnlineBtn bind:value={filterOnlineStatus} status="offline" name={getTranslation(App.language.value, 'routes.filterOffline')} />
 	</div>
 
 	<Outer>

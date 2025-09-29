@@ -6,6 +6,8 @@
 	import Delete from '$lib/parts/Delete.svelte';
 	import { debug } from '$lib/common/debug';
 	import Text from '$lib/parts/Text.svelte';
+	import { getTranslation } from '$lib/common/locales';
+	import { App } from '$lib/States.svelte';
 
 	const ToastStore = getToastStore();
 
@@ -74,7 +76,7 @@
 	function deleteHost() {
 		try {
 			acl.deleteHost(host.name);
-			toastSuccess(`Host '${host.name}' deleted`, ToastStore);
+		toastSuccess(getTranslation(App.language.value, 'acls.hostDeleted', {hostName: host.name}), ToastStore);
 		} catch (e) {
 			debug(e);
 			if (e instanceof Error) {
@@ -108,7 +110,7 @@
 	class="card p-4 variant-filled-warning text-center {popupShow ? '' : 'invisible'}"
 	data-popup="popupHover-host-{hostName}"
 >
-	<p>Host '{hostName}' has the same name as a user.<br />Please rename the host.</p>
+	<p>{@html getTranslation(App.language.value, 'acls.hostNameConflict', {hostName: hostName})}</p>
 	<div class="arrow variant-filled-warning"></div>
 </div>
 

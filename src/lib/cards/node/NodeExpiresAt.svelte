@@ -6,6 +6,7 @@
 	import { expireNode } from '$lib/common/api';
 	import { onMount } from 'svelte';
 	import { App } from '$lib/States.svelte';
+	import { getTranslation } from '$lib/common/locales';
 
 	type NodeExpiresAtProps = {
 		node: Node,
@@ -27,7 +28,7 @@
 	});
 </script>
 
-<CardListEntry title="Expires:">
+<CardListEntry title={getTranslation(App.language.value, 'common.expires') + ':'}>
 	<div class="flex flex-row items-start text-right justify-end">
 		<span class=" {getTimeDifferenceColor(diff)} items-center">
 			{diff.message}

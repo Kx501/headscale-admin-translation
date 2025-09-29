@@ -5,6 +5,8 @@
 	import { toastSuccess } from '$lib/common/funcs';
 	import CardListPage from '$lib/cards/CardListPage.svelte';
 	import RawMdiSave from '~icons/mdi/content-save-outline'
+	import { getTranslation } from '$lib/common/locales';
+	import { App } from '$lib/States.svelte';
 
 	import SshRuleListCard from '$lib/cards/acl/SshRuleListCard.svelte';
 
@@ -64,7 +66,7 @@
 				<RawMdiSave />
 			</button>
 			<button class="btn-sm rounded-md variant-filled-success" onclick={newSshRule}>
-				Create SSH Rule
+				{getTranslation(App.language.value, 'acls.createSshRule')}
 			</button>
 		</div>
 	</div>
@@ -74,7 +76,7 @@
 			autocomplete="off"
 			type="text"
 			class="input rounded-md text-sm mb-0"
-			placeholder="Filter SSH Rules..."
+			placeholder={getTranslation(App.language.value, 'acls.filterSshRules')}
 			bind:value={sshRuleFilterString}
 		/>
 	</div>

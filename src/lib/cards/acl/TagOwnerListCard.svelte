@@ -3,6 +3,7 @@
 	import type { ACLBuilder } from '$lib/common/acl.svelte';
 	import type { User } from '$lib/common/types';
 	import { toastSuccess, toastError } from '$lib/common/funcs';
+	import { getTranslation } from '$lib/common/locales';
 	import MultiSelect from '$lib/parts/MultiSelect.svelte';
 	import Delete from '$lib/parts/Delete.svelte';
 	import CardListContainer from '$lib/cards/CardListContainer.svelte';
@@ -57,7 +58,7 @@
 		try {
 			if (tag.name !== tagNameNew) {
 				acl.renameTag(tag.name, tagNameNew);
-				toastSuccess(`Tag renamed from '${tag.name}' to '${tagNameNew}'`, ToastStore);
+				toastSuccess(getTranslation(App.language.value, 'acls.tagRenamed', { oldName: tag.name, newName: tagNameNew }), ToastStore);
 				tagName = tagNameNew;
 			}
 			return true;
@@ -76,7 +77,7 @@
 		loading = true
 		try{
 			acl.deleteTag(tag.name);
-			toastSuccess(`Tag '${tag.name}' deleted`, ToastStore)
+			toastSuccess(getTranslation(App.language.value, 'acls.tagDeleted', { tagName: tag.name }), ToastStore)
 		}catch(e){
 			if(e instanceof Error){
 				toastError('', ToastStore, e);

@@ -7,6 +7,8 @@
 	import type { LayoutStyle, Valued } from '$lib/States.svelte';
 	import { App } from '$lib/States.svelte';
 	import type { Snippet } from 'svelte';
+	import Translate from '$lib/common/Translate.svelte';
+	import { getTranslation } from '$lib/common/locales';
 
 	type PageHeaderProps = {
 		filterString?: string,
@@ -22,7 +24,7 @@
 		title,
 		show = $bindable(false),
 		layout = $bindable(undefined),
-		buttonText = 'Create',
+		buttonText = getTranslation(App.language.value, 'common.create'),
 		button,
 	}: PageHeaderProps = $props()
 
@@ -43,7 +45,7 @@
 
 <div class="py-5">
 	<div class="flex flex-row justify-between">
-		<div class="text-3xl md:text-4xl lg:text-5xl font-mono">{title}</div>
+		<div class="text-3xl md:text-4xl lg:text-5xl font-mono"><Translate key={title} /></div>
 		{#if layout && layoutCurrent}
 			<div class="flex pr-5">
 				<RawMdiViewGridOutline />
@@ -73,12 +75,12 @@
 			{/if}
 			{#if filterString !== undefined}
 				<input
-					type="text"
-					class="input rounded-md text-sm w-64 md:w-96 {regexIsValid ? '' : 'input-error'}"
-					bind:value={filterString}
-					use:focus
-					placeholder="Search..."
-				/>
+						type="text"
+						class="input rounded-md text-sm w-64 md:w-96 {regexIsValid ? '' : 'input-error'}"
+						bind:value={filterString}
+						use:focus
+						placeholder={getTranslation(App.language.value, 'common.search')}
+					/>
 			{/if}
 		</div>
 	{/if}

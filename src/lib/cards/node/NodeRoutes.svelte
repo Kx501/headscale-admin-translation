@@ -8,6 +8,7 @@
 	import { disableRoutes, enableRoutes } from '$lib/common/api';
 	import { App } from '$lib/States.svelte';
 	import type { Snippet } from 'svelte';
+	import { getTranslation } from '$lib/common/locales';
 
 	type NodeRoutesProps = {
 		node: Node,
@@ -25,7 +26,7 @@
 
 </script>
 
-<CardListEntry title={showTitle ? "Routes:" : undefined} valueClasses="justify-right text-right" top>
+<CardListEntry title={showTitle ? getTranslation(App.language.value, 'common.routes') + ':' : undefined} valueClasses="justify-right text-right" top>
 	<div class="mb-2 flex flex-row">
 		<button
 			class="btn btn-sm items-end gap-1 px-0 ml-4 text-success-700 dark:text-success-400"

@@ -11,6 +11,8 @@
 	import { getSortedFilteredNodes } from '$lib/common/funcs';
 	import { App } from '$lib/States.svelte';
 	import FilterOnlineBtn from '$lib/parts/FilterOnlineBtn.svelte';
+	import Translate from '$lib/common/Translate.svelte';
+	import { getTranslation } from '$lib/common/locales';
 
 	let showCreate = $state(false);
 
@@ -37,7 +39,7 @@
 </script>
 
 <Page>
-	<PageHeader title="Nodes" layout={App.layoutNode} bind:show={showCreate} bind:filterString>
+	<PageHeader title="navigation.nodes" layout={App.layoutNode} bind:show={showCreate} bind:filterString>
 		{#snippet button()}
 			<NodeCreate bind:show={showCreate} />
 		{/snippet}
@@ -46,16 +48,16 @@
 	<div
 		class="btn-group px-0 mx-0 py-0 my-0 rounded-md variant-ghost-secondary [&>*+*]:border-primary-500"
 	>
-		<SortBtn bind:value={sortMethod} direction={sortDirection} name="ID" {toggle} />
-		<SortBtn bind:value={sortMethod} direction={sortDirection} name="Name" {toggle} />
-		<SortBtn bind:value={sortMethod} direction={sortDirection} name="Last Seen" {toggle} />
+		<SortBtn bind:value={sortMethod} direction={sortDirection} name={getTranslation(App.language.value, 'nodes.sortId')} {toggle} />
+		<SortBtn bind:value={sortMethod} direction={sortDirection} name={getTranslation(App.language.value, 'nodes.sortName')} {toggle} />
+		<SortBtn bind:value={sortMethod} direction={sortDirection} name={getTranslation(App.language.value, 'nodes.sortLastSeen')} {toggle} />
 	</div>
 	<div
 		class="btn-group ml-2 px-0 mx-0 py-0 my-0 rounded-md variant-ghost-secondary [&>*+*]:border-primary-500"
 	>
-		<FilterOnlineBtn bind:value={filterOnlineStatus} status="all" name="All" />
-		<FilterOnlineBtn bind:value={filterOnlineStatus} status="online" name="Online" />
-		<FilterOnlineBtn bind:value={filterOnlineStatus} status="offline" name="Offline" />
+		<FilterOnlineBtn bind:value={filterOnlineStatus} status="all" name={getTranslation(App.language.value, 'nodes.filterAll')} />
+		<FilterOnlineBtn bind:value={filterOnlineStatus} status="online" name={getTranslation(App.language.value, 'nodes.filterOnline')} />
+		<FilterOnlineBtn bind:value={filterOnlineStatus} status="offline" name={getTranslation(App.language.value, 'nodes.filterOffline')} />
 	</div>
 
 	<Outer>

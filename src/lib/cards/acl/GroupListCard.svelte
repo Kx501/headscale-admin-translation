@@ -11,6 +11,7 @@
 	import { debug } from '$lib/common/debug';
 	import { getToastStore } from '@skeletonlabs/skeleton';
 	import { toastSuccess, toastError } from '$lib/common/funcs';
+	import { getTranslation } from '$lib/common/locales';
 
 	import RawMdiGroup from '~icons/mdi/account-group-outline';
 
@@ -47,7 +48,7 @@
 		try {
 			if (groupName !== groupNameNew) {
 				acl.renameGroup(groupName, groupNameNew);
-				toastSuccess(`Group renamed from '${groupName}' to '${groupNameNew}'`, ToastStore);
+		toastSuccess(getTranslation(App.language.value, 'acls.groupRenamed', {oldName: groupName, newName: groupNameNew}), ToastStore);
 				groupName = groupNameNew;
 			}
 			return true;
@@ -63,7 +64,7 @@
 		deleting = true;
 		try {
 			acl.deleteGroup(groupName);
-			toastSuccess(`Group '${groupName}' deleted`, ToastStore);
+		toastSuccess(getTranslation(App.language.value, 'acls.groupDeleted', {groupName: groupName}), ToastStore);
 		} catch (e) {
 			if (e instanceof Error) {
 				toastError('', ToastStore, e);
@@ -97,7 +98,7 @@
 	{#snippet children()}
 	<CardListContainer>
 		<h3 class="font-mono mb-4 flex flex-row items-center">
-			<span>Members of</span>
+			<span>{getTranslation(App.language.value, 'common.membersOf')}</span>
 			<Text
 				bind:value={group.name}
 				bind:valueNew={groupNameNew}
@@ -110,7 +111,7 @@
 			bind:items={group.members}
 			options={userNames}
 			id={"group-" + groupName + "-select"}
-			placeholder={"Select members of " + groupName + "..."}
+			placeholder={getTranslation(App.language.value, 'common.selectMembersOf') + ' ' + groupName + '...'}
 			onItemClick={removeMember}
 		/>
 		<div class="pt-4">

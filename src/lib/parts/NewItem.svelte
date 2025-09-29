@@ -3,6 +3,8 @@
 	import { getToastStore } from '@skeletonlabs/skeleton';
 	import { slide } from 'svelte/transition';
 	import RawMdiCheckCircleOutline from '~icons/mdi/check-circle-outline';
+	import { getTranslation } from '$lib/common/locales';
+	import { App } from '$lib/States.svelte';
 
 	type NewItemProps = {
 		title: string,
@@ -43,7 +45,7 @@
 		autocomplete="off"
 		class="input rounded-md text-sm"
 		type="text"
-		placeholder="New {title} Name..."
+		placeholder={getTranslation(App.language.value, 'common.newItemName', { title })}
 		{disabled}
 		bind:value={name}
 		use:focus
@@ -52,7 +54,7 @@
 		<input
 			class="input rounded-md text-sm"
 			type="text"
-			placeholder="{title} Value..."
+			placeholder={getTranslation(App.language.value, 'common.itemValue', { title })}
 			{disabled}
 			bind:value
 		/>

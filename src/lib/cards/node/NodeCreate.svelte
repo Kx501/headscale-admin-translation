@@ -7,6 +7,7 @@
 	import RawMdiCheckCircleOutline from '~icons/mdi/check-circle-outline';
 
 	import { App } from '$lib/States.svelte';
+	import { getTranslation } from '$lib/common/locales';
 
 	type NodeCreateProps = {
 		show: boolean,
@@ -54,7 +55,7 @@
 		<input
 			class="input rounded-md w-full md:w-1/2 lg:w-1/3"
 			type="text"
-			placeholder="Device Key..."
+			placeholder={getTranslation(App.language.value, 'nodes.deviceKey')}
 			disabled={loading}
 			bind:value={nodekey}
 			use:focus

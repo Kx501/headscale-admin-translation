@@ -7,6 +7,7 @@ import type { ToastStore } from '@skeletonlabs/skeleton';
 import { apiGet } from './common/api';
 import { arraysEqual, clone, toastError, toastWarning } from './common/funcs';
 import { debug } from './common/debug';
+import { getCurrentLanguage, setLanguage, getTranslation, type Language } from './common/locales';
 
 export type LayoutStyle = 'tile' | 'list';
 
@@ -113,6 +114,14 @@ export class HeadscaleAdmin {
     theme = new StateLocal<string>('theme', 'skeleton', (themeName) => {
         if(themeName !== undefined) {
             document.body.setAttribute('data-theme', themeName);
+        }
+    })
+
+    // language information
+    language = new StateLocal<Language>('headscale-admin-language', getCurrentLanguage(), (language) => {
+        if(language !== undefined) {
+            setLanguage(language);
+            window.dispatchEvent(new CustomEvent('languageChanged', { detail: language }));
         }
     })
 
@@ -293,7 +302,7 @@ export function informUserUnauthorized(toastStore: ToastStore) {
 		}
 		App.apiKeyInfo.value.informedUnauthorized = true;
 		App.apiKeyInfo.value.authorized = false;
-		toastError('API Key is Unauthorized or Invalid', toastStore);
+		toastError(getTranslation(App.language.value, 'settings.apiKeyUnauthorized'), toastStore);
 	});
 }
 
@@ -302,8 +311,7 @@ export function informUserExpiringSoon(toastStore: ToastStore) {
 		if (App.apiKeyInfo.value.informedExpiringSoon === true) {
 			return;
 		}
-		App.apiKeyInfo.value.informedUnauthorized = true;
-		App.apiKeyInfo.value.authorized = false;
-		toastWarning('API Key Expires Soon', toastStore);
+		App.apiKeyInfo.value.informedExpiringSoon = true;
+		toastWarning(getTranslation(App.language.value, 'settings.apiKeyExpiresSoon'), toastStore);
 	});
 }

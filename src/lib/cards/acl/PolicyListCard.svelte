@@ -17,6 +17,7 @@
 	import ListEntry from './ListEntry.svelte';
 	import Tabbed from '$lib/parts/Tabbed.svelte';
 	import { App } from '$lib/States.svelte';
+	import { getTranslation } from '$lib/common/locales';
 	import { slide } from 'svelte/transition';
 
 	const ToastStore = getToastStore();
@@ -123,7 +124,7 @@
 		loading = true;
 		try {
 			acl.delPolicy(idx)
-			toastSuccess(`Policy #'${idx+1}' has been deleted`, ToastStore);
+			toastSuccess(getTranslation(App.language.value, 'acls.policyDeleted', { policyNumber: (idx+1).toString() }), ToastStore);
 		} catch (e) {
 			if (e instanceof Error) {
 				toastError('', ToastStore, e);
@@ -222,7 +223,7 @@
 		<CardListContainer>
 			<div class="mb-6">
 				<h3 class="font-mono mb-2 flex flex-row items-center">
-					<label for="policy-name">Name:</label>
+						<label for="policy-name">{getTranslation(App.language.value, 'common.name')}:</label>
 					<input
 						type="text" 
 						name="policy-name"
@@ -233,27 +234,27 @@
 					/>
 				</h3>
 				<h3 class="font-mono mb-2 flex flex-row items-center">
-					<span>Protocol:</span>
+					<span>{getTranslation(App.language.value, 'acls.protocol')}:</span>
 				</h3>
 				<div>
 					<div class="btn-group text-sm rounded-md variant-soft">
 						<button
 							class={"btn-sm hover:variant-soft-primary " + (policy.proto === undefined ? "variant-soft-primary" : "")}
-							onclick={()=>{ policy.proto = undefined }}>Any</button>
+							onclick={()=>{ policy.proto = undefined }}>{getTranslation(App.language.value, 'common.any')}</button>
 						<button
 							class={"btn-sm hover:variant-soft-primary " + (policy.proto === "tcp" ? "variant-soft-primary" : "")}
-							onclick={()=>{ policy.proto = "tcp" }}>TCP</button>
+							onclick={()=>{ policy.proto = "tcp" }}>{getTranslation(App.language.value, 'common.tcp')}</button>
 						<button
 							class={"btn-sm hover:variant-soft-primary " + (policy.proto === "udp" ? "variant-soft-primary" : "")}
-							onclick={()=>{ policy.proto = "udp" }}>UDP</button>
+							onclick={()=>{ policy.proto = "udp" }}>{getTranslation(App.language.value, 'common.udp')}</button>
 						<button
 							class={"btn-sm hover:variant-soft-primary " + (policy.proto === "icmp" ? "variant-soft-primary" : "")}
-							onclick={()=>{ policy.proto = "icmp" }}>ICMP</button>
+							onclick={()=>{ policy.proto = "icmp" }}>{getTranslation(App.language.value, 'common.icmp')}</button>
 					</div>
 				</div>
 			</div>
 			<h3 class="font-mono mb-2 flex flex-row items-center">
-				<span>Sources:</span>
+					<span>{getTranslation(App.language.value, 'acls.sources')}:</span>
 			</h3>
 			<div>
 				<TabGroup
@@ -284,7 +285,7 @@
 					<input
 						autocomplete="off"
 						class="input rounded-md mt-2"
-						placeholder="Src Object..."
+						placeholder={getTranslation(App.language.value, 'acls.srcObject')}
 						bind:value={srcNewHost}
 						disabled={!srcNewHostEditable} />
 					<button
@@ -301,7 +302,7 @@
 							}
 						}}
 					>
-						Add
+						{getTranslation(App.language.value, 'common.add')}
 					</button>
 				</div>
 			</div>
@@ -319,7 +320,7 @@
 			{/each}
 			<!-- --- -->
 			<h3 class="font-mono mb-2 mt-6 flex flex-row items-center">
-				<span>Destinations:</span>
+					<span>{getTranslation(App.language.value, 'acls.destinations')}:</span>
 			</h3>
 			<div>
 				<TabGroup
@@ -350,13 +351,13 @@
 					<input
 						autocomplete="off"
 						class="input rounded-md mt-2"
-						placeholder="Dst Object..."
+						placeholder={getTranslation(App.language.value, 'acls.dstObject')}
 						bind:value={dstNewHost}
 						disabled={!dstNewHostEditable} />
 					<input
 						autocomplete="off"
 						class="input rounded-md mt-2"
-						placeholder="Dst Ports..."
+						placeholder={getTranslation(App.language.value, 'acls.dstPorts')}
 						bind:value={dstNewPorts}
 						disabled={!dstNewPortsEditable} />
 					<button
@@ -374,7 +375,7 @@
 							}
 						}}
 					>
-						Add
+						{getTranslation(App.language.value, 'common.add')}
 					</button>
 				</div>
 			</div>

@@ -1,14 +1,16 @@
 <script lang="ts">
 	import { InputChip, getToastStore, popup, type PopupSettings } from '@skeletonlabs/skeleton';
 
+	import CardListEntry from '../CardListEntry.svelte';
+
 	import type { Node } from '$lib/common/types';
 	import { setNodeTags } from '$lib/common/api';
 	import { toastError } from '$lib/common/funcs';
-	import CardListEntry from '../CardListEntry.svelte';
 
 	import RawMdiWarning from '~icons/mdi/warning-outline';
 
 	import { App } from '$lib/States.svelte';
+	import { getTranslation } from '$lib/common/locales';
 
 	type NodeTagsProps = {
 		node: Node,
@@ -77,7 +79,7 @@
 </div>
 
 <div class="space-y-4">
-	<CardListEntry top title="Tags:">
+	<CardListEntry top title={getTranslation(App.language.value, 'common.tags') + ':'}>
 		<InputChip
 			name="tags-forced-node-{node.id}"
 			{disabled}
@@ -91,7 +93,7 @@
 	<CardListEntry top>
 		{#snippet childTitle()}
 		<span class="flex flex-row items-center">
-			Advertised Tags:
+			{getTranslation(App.language.value, 'common.advertisedTags') + ':'}
 			{#if tagsInvalid.length > 0}
 				<button
 					class="btn ml-2 btn-icon w-6 h-6 [&>*]:pointer-events-none"

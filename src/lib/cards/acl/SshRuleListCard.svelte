@@ -16,6 +16,7 @@
 	import ListEntry from './ListEntry.svelte';
 	import Tabbed from '$lib/parts/Tabbed.svelte';
 	import { App } from '$lib/States.svelte';
+	import { getTranslation } from '$lib/common/locales';
 
 	const ToastStore = getToastStore();
 
@@ -94,7 +95,7 @@
 		deleting = true;
 		try {
 			acl.delSshRule(idx)
-			toastSuccess(`SSH Rule #'${idx+1}' has been deleted`, ToastStore);
+			toastSuccess(getTranslation(App.language.value, 'acls.sshRuleDeleted', { ruleNumber: (idx+1).toString() }), ToastStore);
 		} catch (e) {
 			if (e instanceof Error) {
 				toastError('', ToastStore, e);
@@ -167,11 +168,11 @@
 			{/if}
 			<div class="flex flex-row space-x-2">
 				<input
-					autocomplete="off"
-					class="input rounded-md mt-2"
-					placeholder="Src Object..."
-					bind:value={srcNewHost}
-					disabled={!srcNewHostEditable} />
+						autocomplete="off"
+						class="input rounded-md mt-2"
+						placeholder={getTranslation(App.language.value, 'acls.srcObject')}
+						bind:value={srcNewHost}
+						disabled={!srcNewHostEditable} />
 				<button
 					class="btn btn-sm rounded-md mt-2 variant-soft-tertiary"
 					onclick={()=>{
@@ -233,11 +234,11 @@
 			{/if}
 			<div class="flex flex-row space-x-2">
 				<input
-					autocomplete="off"
-					class="input rounded-md mt-2"
-					placeholder="Dst Object..."
-					bind:value={dstNewHost}
-					disabled={!dstNewHostEditable} />
+						autocomplete="off"
+						class="input rounded-md mt-2"
+						placeholder={getTranslation(App.language.value, 'acls.dstObject')}
+						bind:value={dstNewHost}
+						disabled={!dstNewHostEditable} />
 				<button
 					class="btn btn-sm rounded-md mt-2 variant-soft-tertiary"
 					onclick={()=>{

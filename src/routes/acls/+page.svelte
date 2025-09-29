@@ -16,6 +16,7 @@
 	import Page from '$lib/page/Page.svelte';
 	import PageHeader from '$lib/page/PageHeader.svelte';
 	import Tabbed from '$lib/parts/Tabbed.svelte';
+	import { App } from '$lib/States.svelte';
 
 	import Config from './Config.svelte';
 	import Groups from './Groups.svelte';
@@ -23,6 +24,8 @@
 	import Policies from './Policies.svelte';
 	import TagOwners from './TagOwners.svelte'
 	import SshRules from './SshRules.svelte';
+	import Translate from '$lib/common/Translate.svelte';
+	import { getTranslation } from '$lib/common/locales';
 
 	const ToastStore = getToastStore()
 
@@ -32,12 +35,12 @@
 	// Navigation tabs
 	let tabSet: number = $state(0);
 	const tabs = [
-		{ name: 'groups', title: 'Groups', logo: RawMdiGroups },
-		{ name: 'tag-owners', title: 'Tag Owners', logo: RawMdiTag },
-		{ name: 'hosts', title: 'Hosts', logo: RawMdiDevices },
-		{ name: 'policies', title: 'Policies', logo: RawMdiSecurity },
-		{ name: 'ssh', title: 'SSH', logo: RawMdiConsole },
-		{ name: 'config', title: 'Config', logo: RawMdiCodeJSON },
+		{ name: 'groups', title: getTranslation(App.language.value, 'acls.groups'), logo: RawMdiGroups },
+		{ name: 'tag-owners', title: getTranslation(App.language.value, 'acls.tagOwners'), logo: RawMdiTag },
+		{ name: 'hosts', title: getTranslation(App.language.value, 'acls.hosts'), logo: RawMdiDevices },
+		{ name: 'policies', title: getTranslation(App.language.value, 'acls.policies'), logo: RawMdiSecurity },
+		{ name: 'ssh', title: getTranslation(App.language.value, 'acls.ssh'), logo: RawMdiConsole },
+		{ name: 'config', title: getTranslation(App.language.value, 'acls.config'), logo: RawMdiCodeJSON },
 	];
 
 	onMount(() => {
@@ -45,13 +48,13 @@
 			acl = ACLBuilder.fromPolicy(JWCC.parse<ACL>(policy))
 		}).catch(reason => {
 			debug("failed to get policy:", reason)
-			toastError(`Unable to get policy from server.`, ToastStore, reason)
+			toastError(getTranslation(App.language.value, 'acls.unableToGetPolicy'), ToastStore, reason)
 		})
 	});
 </script>
 
 <Page>
-	<PageHeader title="ACL Builder" />
+	<PageHeader title="navigation.aclBuilder" />
 	<TabGroup
 		justify="justify-left"
 		active="variant-filled-secondary"

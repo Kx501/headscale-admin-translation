@@ -12,6 +12,8 @@
 	import { App } from '$lib/States.svelte';
 	import { getSortedFilteredUsers } from '$lib/common/funcs';
 	import FilterOnlineBtn from '$lib/parts/FilterOnlineBtn.svelte';
+	import Translate from '$lib/common/Translate.svelte';
+	import { getTranslation } from '$lib/common/locales';
 
 	let showCreate = $state(false);
 	const layout = $derived(App.layoutUser.value)
@@ -40,7 +42,7 @@
 </script>
 
 <Page>
-	<PageHeader title="Users" layout={App.layoutUser} bind:show={showCreate} bind:filterString>
+	<PageHeader title="navigation.users" layout={App.layoutUser} bind:show={showCreate} bind:filterString>
 		{#snippet button()}
 			<UserCreate bind:show={showCreate} />
 		{/snippet}
@@ -49,15 +51,15 @@
 	<div
 		class="btn-group px-0 mx-0 py-0 my-0 rounded-md variant-ghost-secondary [&>*+*]:border-primary-500"
 	>
-		<SortBtn bind:value={sortMethod} direction={sortDirection} name="ID" {toggle} />
-		<SortBtn bind:value={sortMethod} direction={sortDirection} name="Name" {toggle} />
+		<SortBtn bind:value={sortMethod} direction={sortDirection} name={getTranslation(App.language.value, 'users.sortId')} {toggle} />
+		<SortBtn bind:value={sortMethod} direction={sortDirection} name={getTranslation(App.language.value, 'users.sortName')} {toggle} />
 	</div>
 	<div
 		class="btn-group ml-2 px-0 mx-0 py-0 my-0 rounded-md variant-ghost-secondary [&>*+*]:border-primary-500"
 	>
-		<FilterOnlineBtn bind:value={filterOnlineStatus} status="all" name="All" />
-		<FilterOnlineBtn bind:value={filterOnlineStatus} status="online" name="Online" />
-		<FilterOnlineBtn bind:value={filterOnlineStatus} status="offline" name="Offline" />
+		<FilterOnlineBtn bind:value={filterOnlineStatus} status="all" name={getTranslation(App.language.value, 'users.filterAll')} />
+		<FilterOnlineBtn bind:value={filterOnlineStatus} status="online" name={getTranslation(App.language.value, 'users.filterOnline')} />
+		<FilterOnlineBtn bind:value={filterOnlineStatus} status="offline" name={getTranslation(App.language.value, 'users.filterOffline')} />
 	</div>
 
 	<Outer>

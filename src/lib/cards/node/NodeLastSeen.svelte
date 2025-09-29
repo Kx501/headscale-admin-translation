@@ -3,6 +3,8 @@
 	import type { Node } from '$lib/common/types';
 	import { onMount } from 'svelte';
 	import CardListEntry from '../CardListEntry.svelte';
+	import { getTranslation } from '$lib/common/locales';
+	import { App } from '$lib/States.svelte';
 
 	type NodeLastSeenProps = {
 		node: Node,
@@ -21,7 +23,7 @@
 	});
 </script>
 
-<CardListEntry title="Last Seen:">
+<CardListEntry title={getTranslation(App.language.value, 'common.lastSeen') + ':'}>
 	{#if node.online}
 		Online Now
 	{:else}

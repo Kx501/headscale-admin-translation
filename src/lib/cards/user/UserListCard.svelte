@@ -6,6 +6,8 @@
 	import CardListEntry from '../CardListEntry.svelte';
 	import UserInfo from './UserInfo.svelte';
 	import OnlineUserIndicator from '$lib/parts/OnlineUserIndicator.svelte';
+	import { getTranslation } from '$lib/common/locales';
+	import { App } from '$lib/States.svelte';
 
 	type UserListCardProps = {
 		user: User,
@@ -26,10 +28,10 @@
 	</svelte:fragment>
 	<svelte:fragment slot="summary">
 		<div class="grid">
-			<CardListEntry title="ID: {user.id}">
-				<span class="font-bold">
-					{getUserDisplay(user)}
-				</span>
+			<CardListEntry title={getTranslation(App.language.value, 'common.id') + ': ' + user.id}>
+			<span class="font-bold">
+				{getUserDisplay(user)}
+			</span>
 			</CardListEntry>
 		</div>
 	</svelte:fragment>

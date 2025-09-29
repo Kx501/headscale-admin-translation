@@ -13,6 +13,7 @@
 	import RawMdiCloseCircleOutline from '~icons/mdi/close-circle-outline';
 
 	import { App } from '$lib/States.svelte';
+	import { getTranslation } from '$lib/common/locales';
 
 	type NodeOwnerProps = {
 		node: Node,
@@ -28,7 +29,7 @@
 
 </script>
 
-<CardListEntry title="Owner:" top>
+<CardListEntry title={getTranslation(App.language.value, 'common.owner') + ':'} top>
 	<div class="flex flex-row items-center gap-3 justify-end">
 		<!--button type="button" class="btn-sm ml-0"-->
 		<a
@@ -53,7 +54,7 @@
 	</div>
 	{#if showTransfer}
 		<div class="flex flex-row items-center justify-end pt-5" transition:slide>
-			<span class="pr-3">New Owner:</span>
+			<span class="pr-3">{getTranslation(App.language.value, 'common.newOwner') + ':'}</span>
 			<label class="label">
 				<select class="select" bind:value={transferUser}>
 					{#each App.users.value.filter(u => !!u.name) as user}
