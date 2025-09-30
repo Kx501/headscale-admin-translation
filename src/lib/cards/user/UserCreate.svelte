@@ -21,16 +21,16 @@
 
 		loading = true;
 		try {
-			const u = await createUser(username);
-			App.users.value.push(u)
-			toastSuccess('Created user "' + username + '"', toastStore);
-			show = false;
-			username = '';
-		} catch (error) {
-			if (error instanceof Error) {
-				toastError('Failed to create user "' + username + '"', toastStore, error);
-			}
-		} finally {
+				const u = await createUser(username);
+				App.users.value.push(u)
+				toastSuccess(getTranslation(App.language.value, 'common.userCreateSuccess', { name: username }), toastStore);
+				show = false;
+				username = '';
+			} catch (error) {
+				if (error instanceof Error) {
+					toastError(getTranslation(App.language.value, 'common.userCreateFailed', { name: username }), toastStore, error);
+				}
+			} finally {
 			loading = false;
 		}
 	}

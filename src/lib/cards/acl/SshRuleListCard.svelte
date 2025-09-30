@@ -57,17 +57,17 @@
 
 	let tabSetSrc = $state(0)
 	const tabsSrc = [
-		{ name: "custom", title: "Custom", logo: RawMdiPencil },
-		{ name: "user", title: "User", logo: RawMdiTag },
-		{ name: "group", title: "Group", logo: RawMdiGroups },
-		{ name: "tag", title: "Tag", logo: RawMdiTag },
+		{ name: "custom", title: getTranslation(App.language.value, 'acls.tabCustom') as string, logo: RawMdiPencil },
+		{ name: "user", title: getTranslation(App.language.value, 'acls.tabUser') as string, logo: RawMdiTag },
+		{ name: "group", title: getTranslation(App.language.value, 'acls.tabGroup') as string, logo: RawMdiGroups },
+		{ name: "tag", title: getTranslation(App.language.value, 'acls.tabTag') as string, logo: RawMdiTag },
 	]
 
 	let tabSetDst = $state(0)
 	const tabsDst = [
-		{ name: "custom", title: "Custom", logo: RawMdiPencil },
-		{ name: "user", title: "User", logo: RawMdiTag },
-		{ name: "tag", title: "Tag", logo: RawMdiTag },
+		{ name: "custom", title: getTranslation(App.language.value, 'acls.tabCustom') as string, logo: RawMdiPencil },
+		{ name: "user", title: getTranslation(App.language.value, 'acls.tabUser') as string, logo: RawMdiTag },
+		{ name: "tag", title: getTranslation(App.language.value, 'acls.tabTag') as string, logo: RawMdiTag },
 	]
 	
 	const srcNewType = $derived(tabsSrc[tabSetSrc].name)

@@ -166,8 +166,8 @@
 				bind:value={deployment.advertiseTagsValues}
 				validation={isValidTag}
 				on:invalid={() => {
-					toastError('Tag should be a lowercase alphanumeric word', ToastStore);
-				}}
+				toastError(getTranslation(App.language.value, 'common.tagShouldBeLowercaseAlphanumeric'), ToastStore);
+			}}
 			/>
 		</DeployCheck>
 		<DeployCheck
@@ -180,8 +180,8 @@
 				bind:value={deployment.advertiseRoutesValues}
 				validation={isValidCIDR}
 				on:invalid={() => {
-					toastError('Invalid CIDR Format', ToastStore);
-				}}
+				toastError(getTranslation(App.language.value, 'common.invalidCIDRFormat'), ToastStore);
+			}}
 			/>
 		</DeployCheck>
 

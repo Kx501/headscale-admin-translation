@@ -22,7 +22,7 @@
 
 	async function newNode() {
 		if (nodekey == '' || username == '') {
-			toastError('Username and Device Key are Required', ToastStore);
+			toastError(getTranslation(App.language.value, 'common.usernameAndDeviceKeyRequired'), ToastStore);
 			return;
 		}
 		loading = true;
@@ -34,7 +34,7 @@
 			App.nodes.value.push(n)
 
 			// success message
-			toastSuccess('Created node "' + n.name + '"', ToastStore);
+			toastSuccess(getTranslation(App.language.value, 'common.nodeCreateSuccess', { name: n.name }), ToastStore);
 
 			// no longer needed
 			show = false;
@@ -42,7 +42,7 @@
 		} catch (error) {
 			if (error instanceof Error) {
 				debug(error);
-				toastError('Failed to create node', ToastStore, error);
+				toastError(getTranslation(App.language.value, 'common.nodeCreateFailed'), ToastStore, error);
 			}
 		} finally {
 			loading = false;

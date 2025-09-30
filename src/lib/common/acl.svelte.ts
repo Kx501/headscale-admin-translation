@@ -698,7 +698,7 @@ export class ACLBuilder implements ACL {
     public static getPolicyTitle(pol: AclPolicy, idx: number): string {
 		const pfx = "#" + (idx + 1) + ": "
 		if (pol["#ha-meta"] === undefined || pol["#ha-meta"].name === "") {
-			return pfx + "Policy #" + (idx + 1)
+            return pfx + getTranslation(App.language.value, 'acls.policyNumber', { number: (idx + 1).toString() })
 		}
 		return pfx + pol["#ha-meta"].name
 	}

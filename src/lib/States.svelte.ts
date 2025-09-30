@@ -81,7 +81,7 @@ export class StateLocal<T> {
             } else {
                 this.#value = valueDefault;
             }
-        
+
             // how do I clean this up?
             $effect.root(()=>{
                 $effect(()=>{
@@ -96,7 +96,12 @@ export class StateLocal<T> {
     }
 
     deserialize(item: string): T {
-        return JSON.parse(item);
+        try {
+            return JSON.parse(item) as T;
+        } catch {
+            // Backward compatibility: older versions stored plain text (e.g., en)
+            return item as unknown as T;
+        }
     }
 }
 
@@ -285,7 +290,7 @@ function isInitialized(): boolean {
 }
 
 interface Identified {
-	id: string;
+    id: string;
 }
 
 export function updateItem(items: Identified[], item: Identified): Identified[] {
@@ -295,23 +300,23 @@ export function updateItem(items: Identified[], item: Identified): Identified[] 
 const mu = new Mutex();
 
 export function informUserUnauthorized(toastStore: ToastStore) {
-	mu.runExclusive(() => {
-		App.apiKeyInfo;
-		if (App.apiKeyInfo.value.informedUnauthorized === true) {
-			return;
-		}
-		App.apiKeyInfo.value.informedUnauthorized = true;
-		App.apiKeyInfo.value.authorized = false;
-		toastError(getTranslation(App.language.value, 'settings.apiKeyUnauthorized'), toastStore);
-	});
+    mu.runExclusive(() => {
+        App.apiKeyInfo;
+        if (App.apiKeyInfo.value.informedUnauthorized === true) {
+            return;
+        }
+        App.apiKeyInfo.value.informedUnauthorized = true;
+        App.apiKeyInfo.value.authorized = false;
+        toastError(getTranslation(App.language.value, 'settings.apiKeyUnauthorized'), toastStore);
+    });
 }
 
 export function informUserExpiringSoon(toastStore: ToastStore) {
-	mu.runExclusive(() => {
-		if (App.apiKeyInfo.value.informedExpiringSoon === true) {
-			return;
-		}
-		App.apiKeyInfo.value.informedExpiringSoon = true;
-		toastWarning(getTranslation(App.language.value, 'settings.apiKeyExpiresSoon'), toastStore);
-	});
+    mu.runExclusive(() => {
+        if (App.apiKeyInfo.value.informedExpiringSoon === true) {
+            return;
+        }
+        App.apiKeyInfo.value.informedExpiringSoon = true;
+        toastWarning(getTranslation(App.language.value, 'settings.apiKeyExpiresSoon'), toastStore);
+    });
 }

@@ -49,19 +49,29 @@ export interface Translation {
     udp: string;
     icmp: string;
     add: string;
+    deleteUser: string;
+    deleteNode: string;
     membersOf: string;
     selectMembersOf: string;
     advertisedTags: string;
     userDeleted: string;
+    userCreateSuccess: string;
+    userCreateFailed: string;
     userDeleteFailed: string;
     userDeleteFailedWithNodes: string;
     nodeDeleted: string;
+    nodeCreateSuccess: string;
+    nodeCreateFailed: string;
     nodeDeleteFailed: string;
     userNameNotEmpty: string;
     nodeNameNotEmpty: string;
+    usernameAndDeviceKeyRequired: string;
+    tagShouldBeLowercaseAlphanumeric: string;
+    invalidCIDRFormat: string;
+    invalidTags: string;
     copiedToClipboard: string;
     failedToCopyToClipboard: string;
-	};
+  };
   navigation: {
     home: string;
     users: string;
@@ -205,6 +215,14 @@ export interface Translation {
     policyCreated: string;
     sshRuleDoesNotExist: string;
     savedAclConfiguration: string;
+    // UI tabs / labels
+    tabCustom: string;
+    tabUser: string;
+    tabHost: string;
+    tabGroup: string;
+    tabTag: string;
+    usernames: string;
+    policyNumber: string;
   };
   deploy: {
     title: string;
@@ -297,19 +315,29 @@ export const translations: Record<Language, Translation> = {
       udp: 'UDP',
       icmp: 'ICMP',
       add: 'Add',
+      deleteUser: 'Delete User',
+      deleteNode: 'Delete Node',
       membersOf: 'Members of',
       selectMembersOf: 'Select members of',
       advertisedTags: 'Advertised Tags',
       userDeleted: 'Deleted User "{name}" (ID: {id})',
+      userCreateSuccess: 'Created user "{name}"',
+      userCreateFailed: 'Failed to create user "{name}"',
       userDeleteFailed: 'Failed to Delete User "{name}" ({id})',
       userDeleteFailedWithNodes: 'Failed to Delete User "{name}" ({id}). Still has nodes.',
       nodeDeleted: 'Deleted machine "{name}" ({id})',
+      nodeCreateSuccess: 'Created node "{name}"',
+      nodeCreateFailed: 'Failed to create node',
       nodeDeleteFailed: 'Failed to Delete machine "{name}" ({id})',
       userNameNotEmpty: 'User name must not be empty',
       nodeNameNotEmpty: 'Node name must not be empty',
+      usernameAndDeviceKeyRequired: 'Username and Device Key are Required',
+      tagShouldBeLowercaseAlphanumeric: 'Tag should be a lowercase alphanumeric word',
+      invalidCIDRFormat: 'Invalid CIDR Format',
+      invalidTags: 'Invalid Tags: {error}',
       copiedToClipboard: 'Copied to Clipboard!',
       failedToCopyToClipboard: 'Failed to copy to clipboard!',
-	},
+    },
     navigation: {
       home: 'Home',
       users: 'Users',
@@ -453,14 +481,22 @@ export const translations: Record<Language, Translation> = {
       noSshRulesDefined: 'No SSH Rules defined',
       sshRuleDoesNotExist: 'SSH Rule does not exist at index \'{idx}\'',
       savedAclConfiguration: 'Saved ACL Configuration',
-  },
+      // UI tabs / labels
+      tabCustom: 'Custom',
+      tabUser: 'User',
+      tabHost: 'Host',
+      tabGroup: 'Group',
+      tabTag: 'Tag',
+      usernames: 'Usernames',
+      policyNumber: 'Policy #{number}',
+    },
     deploy: {
       title: 'Deploy',
       general: 'General:',
       advertise: 'Advertise:',
       accept: 'Accept:',
       saveDefaults: 'Save Defaults',
-      
+
       // General section
       shieldsUp: 'Shields Up',
       shieldsUpHelp: 'Block incoming connections',
@@ -480,7 +516,7 @@ export const translations: Record<Language, Translation> = {
       unattendedHelp: 'Run the tailscale client in unattended mode (on startup)',
       allowLanAccess: 'Allow LAN Access',
       allowLanAccessHelp: 'Allow local network access while connected to the TailNet and using an exit node',
-      
+
       // Advertise section
       advertiseExitNode: 'Advertise Exit Node',
       advertiseExitNodeHelp: 'Allow other nodes on the TailNet to use this node as a gateway',
@@ -489,7 +525,7 @@ export const translations: Record<Language, Translation> = {
       advertiseTagsHelp: 'List of advertised tags to apply to a machine on provisioning',
       advertiseRoutes: 'Advertise Routes',
       advertiseRoutesHelp: 'List of subnets which are reachable via this node',
-      
+
       // Accept section
       acceptDns: 'Accept DNS',
       acceptDnsHelp: 'Accept the HeadScale-provided DNS settings',
@@ -549,19 +585,29 @@ export const translations: Record<Language, Translation> = {
       udp: 'UDP',
       icmp: 'ICMP',
       add: '添加',
+      deleteUser: '删除用户',
+      deleteNode: '删除节点',
       membersOf: '成员',
       selectMembersOf: '选择成员',
       advertisedTags: '宣告标签',
       userDeleted: '已删除用户 "{name}" (ID: {id})',
+      userCreateSuccess: '已创建用户 "{name}"',
+      userCreateFailed: '创建用户 "{name}" 失败',
       userDeleteFailed: '删除用户 "{name}" ({id}) 失败',
       userDeleteFailedWithNodes: '删除用户 "{name}" ({id}) 失败。仍有节点存在。',
       nodeDeleted: '已删除机器 "{name}" ({id})',
+      nodeCreateSuccess: '已创建节点 "{name}"',
+      nodeCreateFailed: '创建节点失败',
       nodeDeleteFailed: '删除机器 "{name}" ({id}) 失败',
       userNameNotEmpty: '用户名不能为空',
       nodeNameNotEmpty: '节点名不能为空',
+      usernameAndDeviceKeyRequired: '用户名和设备密钥是必需的',
+      tagShouldBeLowercaseAlphanumeric: '标签应为小写字母数字单词',
+      invalidCIDRFormat: '无效的CIDR格式',
+      invalidTags: '无效标签: {error}',
       copiedToClipboard: '已复制到剪贴板！',
       failedToCopyToClipboard: '复制到剪贴板失败！',
-	},
+    },
     navigation: {
       home: '首页',
       users: '用户',
@@ -705,6 +751,14 @@ export const translations: Record<Language, Translation> = {
       noSshRulesDefined: '未定义 SSH 规则',
       sshRuleDoesNotExist: '索引 \'{idx}\' 的 SSH 规则不存在',
       savedAclConfiguration: '已保存 ACL 配置',
+      // UI tabs / labels
+      tabCustom: '自定义',
+      tabUser: '用户',
+      tabHost: '主机',
+      tabGroup: '组',
+      tabTag: '标签',
+      usernames: '用户名',
+      policyNumber: '策略 #{number}',
     },
     deploy: {
       title: '部署',
@@ -712,7 +766,7 @@ export const translations: Record<Language, Translation> = {
       advertise: '宣告',
       accept: '接受',
       saveDefaults: '保存默认设置',
-      
+
       // General section
       shieldsUp: '防护模式',
       shieldsUpHelp: '阻止所有传入连接',
@@ -732,7 +786,7 @@ export const translations: Record<Language, Translation> = {
       unattendedHelp: '在无人值守模式下运行 tailscale 客户端（启动时）',
       allowLanAccess: '允许局域网访问',
       allowLanAccessHelp: '连接到 Tailnet 并使用出口节点时允许本地网络访问',
-      
+
       // Advertise section
       advertiseExitNode: '宣告出口节点',
       advertiseExitNodeHelp: '允许 Tailnet 上的其他节点使用此节点作为网关',
@@ -741,7 +795,7 @@ export const translations: Record<Language, Translation> = {
       advertiseTagsHelp: '在配置时应用到机器的宣告标签列表',
       advertiseRoutes: '宣告路由',
       advertiseRoutesHelp: '可通过此节点访问的子网列表',
-      
+
       // Accept section
       acceptDns: '接受 DNS',
       acceptDnsHelp: '接受 Headscale 提供的 DNS 设置',
@@ -761,14 +815,14 @@ export function getTranslation(language: Language): Translation;
 export function getTranslation(language: Language, key: string, params?: Record<string, string>): string;
 export function getTranslation(language: Language, key?: string, params?: Record<string, string>): Translation | string {
   const translation = translations[language] || translations.en;
-  
+
   if (!key) {
     return translation;
   }
-  
+
   const keys = key.split('.');
   let value: any = translation;
-  
+
   for (const k of keys) {
     if (value && typeof value === 'object' && k in value) {
       value = value[k];
@@ -776,7 +830,7 @@ export function getTranslation(language: Language, key?: string, params?: Record
       return key;
     }
   }
-  
+
   if (typeof value === 'string') {
 
     if (params) {
@@ -786,17 +840,25 @@ export function getTranslation(language: Language, key?: string, params?: Record
     }
     return value;
   }
-  
+
   return key;
 }
 
 export function getCurrentLanguage(): Language {
   if (typeof window !== 'undefined') {
-    const saved = localStorage.getItem('headscale-admin-language');
-    if (saved && availableLanguages.includes(saved as Language)) {
-      return saved as Language;
+    const savedRaw = localStorage.getItem('headscale-admin-language');
+    if (savedRaw) {
+      let saved: unknown = savedRaw;
+      try {
+        saved = JSON.parse(savedRaw);
+      } catch {
+        // fall back to raw string (older versions stored plain text)
+      }
+      if (typeof saved === 'string' && availableLanguages.includes(saved as Language)) {
+        return saved as Language;
+      }
     }
-    
+
 
     const browserLang = navigator.language.toLowerCase();
     if (browserLang.startsWith('zh')) {
@@ -808,6 +870,12 @@ export function getCurrentLanguage(): Language {
 
 export function setLanguage(language: Language): void {
   if (typeof window !== 'undefined') {
-    localStorage.setItem('headscale-admin-language', language);
+    // storage is handled by StateLocal via JSON serialization; avoid double-writing plain text here
+    // keep a lightweight side-effect for document language
+    try {
+      document.documentElement.setAttribute('lang', language);
+    } catch {
+      // ignore
+    }
   }
 }

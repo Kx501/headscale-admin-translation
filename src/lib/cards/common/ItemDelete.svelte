@@ -55,6 +55,6 @@
 	}
 </script>
 
-<CardListEntry title={`Delete ${titleCase(prefix)}:`}>
+<CardListEntry title={ `${getTranslation(App.language.value, prefix === 'user' ? 'common.deleteUser' : 'common.deleteNode')}:`}>
 	<Delete func={deleteItem} />
 </CardListEntry>

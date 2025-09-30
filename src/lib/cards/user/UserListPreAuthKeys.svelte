@@ -59,7 +59,7 @@ import { getTranslation } from '$lib/common/locales';
 	<div class="grid grid-cols-12">
 		<div class="flex col-span-12 justify-end items-center">
 			<input class="checkbox mx-0 pr-1" type="checkbox" bind:checked={hideInvalid} />
-			<p class="ml-1 md:ml-2 text-xs">{getTranslation(App.language.value, 'users.hideInvalid')}</p>
+			<p class="ml-1 md:ml-2 text-xs">{getTranslation(App.language.value, 'common.hideInvalid')}</p>
 			<button
 				disabled={disableCreate}
 				type="button"

@@ -43,7 +43,7 @@
 			n.invalidTags = [...tagsInvalid];
 			App.updateValue(App.nodes, n);
 		} catch (e) {
-			toastError('Invalid Tags: ' + e, ToastStore);
+			toastError(getTranslation(App.language.value, 'common.invalidTags', { error: String(e) }), ToastStore);
 		} finally {
 			disabled = false;
 		}
