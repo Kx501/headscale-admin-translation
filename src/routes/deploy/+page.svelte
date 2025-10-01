@@ -71,7 +71,7 @@
 			<button
 				class="bg-gray-400/30 dark:bg-gray-800/70 border border-dashed border-slate-200 border-1 pr-0 pl-4 rounded-lg justify-start text-left w-[90%]"
 				onclick={() =>
-					copyToClipboard(craftCommand(deployment), ToastStore, 'Copied Command to Clipboard!')}
+					copyToClipboard(craftCommand(deployment), ToastStore, getTranslation(App.language.value, 'deploy.copiedToClipboard'))}
 				><code class="text-black dark:text-white text-sm block py-4 w-full"
 					>{craftCommand(deployment)}</code
 				>
@@ -129,8 +129,8 @@
 					<div transition:slide>
 						<select bind:value={deployment.preAuthKey} class="input rounded-md">
 							<option value=""
-								>{App.preAuthKeys.value.filter(createFilter(deployment.preAuthKeyUser)).length} Valid Key(s)</option
-							>
+							>{App.preAuthKeys.value.filter(createFilter(deployment.preAuthKeyUser)).length} {getTranslation(App.language.value, 'common.validKeys')}</option
+						>
 							{#each App.preAuthKeys.value.filter(createFilter(deployment.preAuthKeyUser)) as preAuthKey}
 								<option value={preAuthKey.key}>{preAuthKey.key}</option>
 							{/each}
@@ -214,7 +214,7 @@
 	</div>
 		<button class="btn rounded-md variant-filled-secondary mt-4" onclick={() => {
 			App.saveDeploymentDefaults(deployment)
-			toastSuccess('Saved Deployment Defaults', ToastStore)
+			toastSuccess(getTranslation(App.language.value, 'deploy.savedDeploymentDefaults'), ToastStore)
 		}}>
 			<Translate key="deploy.saveDefaults" />
 		</button>

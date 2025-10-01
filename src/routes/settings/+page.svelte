@@ -83,7 +83,7 @@
 				informedUnauthorized: false,
 				informedExpiringSoon: false,
 			};
-			toastSuccess('Saved Settings', ToastStore);
+			toastSuccess(getTranslation(App.language.value, 'settings.savedSettings'), ToastStore);
 			const handler = createPopulateErrorHandler(ToastStore);
 			await App.populateApiKeyInfo().catch(handler);
 			await App.populateAll(handler, false);

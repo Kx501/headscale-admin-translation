@@ -2,6 +2,8 @@
 	import { toOptions } from '$lib/common/funcs';
     import { clickOutside } from '$lib/common/usables'
 	import { Autocomplete } from '@skeletonlabs/skeleton';
+	import { getTranslation } from '$lib/common/locales';
+	import { App } from '$lib/States.svelte';
 
     type MultiSelectProps = {
         id: string,
@@ -15,7 +17,7 @@
         id = $bindable(),
         items = $bindable(),
         options = undefined,
-        placeholder = "Select...",
+        placeholder = getTranslation(App.language.value, 'common.selectPlaceholder'),
         onItemClick,
     }: MultiSelectProps = $props()
 

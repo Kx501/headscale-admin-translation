@@ -115,7 +115,7 @@
 			id={"tag-" + tagName + "-select"}
 			bind:items={tag.owners}
 			options={options}
-			placeholder={"Select owners of " + tagName + "..."}
+			placeholder={getTranslation(App.language.value, 'common.selectOwnersOf') + ' ' + tagName + '...'}
 			onItemClick={removeMember}
 		/>
 		<div class="pt-4">

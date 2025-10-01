@@ -1,4 +1,4 @@
-// 多语言配置文件
+// Multilingual Configuration File
 export type Language = 'en' | 'zh';
 
 export interface Translation {
@@ -42,8 +42,6 @@ export interface Translation {
     displayName: string;
     provider: string;
     hideInvalid: string;
-    ephemeral: string;
-    reusable: string;
     any: string;
     tcp: string;
     udp: string;
@@ -51,8 +49,11 @@ export interface Translation {
     add: string;
     deleteUser: string;
     deleteNode: string;
+    noResultsFound: string;
     membersOf: string;
     selectMembersOf: string;
+    selectOwnersOf: string;
+    selectPlaceholder: string;
     advertisedTags: string;
     userDeleted: string;
     userCreateSuccess: string;
@@ -71,6 +72,8 @@ export interface Translation {
     invalidTags: string;
     copiedToClipboard: string;
     failedToCopyToClipboard: string;
+    doesNotExpire: string;
+    validKeys: string;
   };
   navigation: {
     home: string;
@@ -114,6 +117,7 @@ export interface Translation {
     logApiKeyInfo: string;
     apiKeyUnauthorized: string;
     apiKeyExpiresSoon: string;
+    savedSettings: string;
   };
   users: {
     title: string;
@@ -128,6 +132,8 @@ export interface Translation {
     filterOffline: string;
     preAuthKeys: string;
     nodes: string;
+    ephemeral: string;
+    reusable: string;
   };
   nodes: {
     title: string;
@@ -215,14 +221,14 @@ export interface Translation {
     policyCreated: string;
     sshRuleDoesNotExist: string;
     savedAclConfiguration: string;
-    // UI tabs / labels
     tabCustom: string;
     tabUser: string;
     tabHost: string;
     tabGroup: string;
     tabTag: string;
-    usernames: string;
-    policyNumber: string;
+      usernames: string;
+      policyNumber: string;
+      sshRuleNumber: string;
   };
   deploy: {
     title: string;
@@ -263,6 +269,7 @@ export interface Translation {
     allowLanAccess: string;
     allowLanAccessHelp: string;
     advertiseExitNodeHelp: string;
+    savedDeploymentDefaults: string;
   };
 }
 
@@ -307,9 +314,7 @@ export const translations: Record<Language, Translation> = {
       email: 'Email',
       displayName: 'Display Name',
       provider: 'Provider',
-      hideInvalid: 'Hide Invalid',
-      ephemeral: 'Ephemeral',
-      reusable: 'Reusable',
+      hideInvalid: 'Hide invalid',
       any: 'Any',
       tcp: 'TCP',
       udp: 'UDP',
@@ -317,9 +322,12 @@ export const translations: Record<Language, Translation> = {
       add: 'Add',
       deleteUser: 'Delete User',
       deleteNode: 'Delete Node',
+      noResultsFound: 'No Results Found',
       membersOf: 'Members of',
       selectMembersOf: 'Select members of',
-      advertisedTags: 'Advertised Tags',
+    selectOwnersOf: 'Select owners of',
+    selectPlaceholder: 'Select...',
+    advertisedTags: 'Advertised Tags',
       userDeleted: 'Deleted User "{name}" (ID: {id})',
       userCreateSuccess: 'Created user "{name}"',
       userCreateFailed: 'Failed to create user "{name}"',
@@ -337,6 +345,8 @@ export const translations: Record<Language, Translation> = {
       invalidTags: 'Invalid Tags: {error}',
       copiedToClipboard: 'Copied to Clipboard!',
       failedToCopyToClipboard: 'Failed to copy to clipboard!',
+      doesNotExpire: 'Does Not Expire',
+      validKeys: 'Valid Key(s)',
     },
     navigation: {
       home: 'Home',
@@ -380,6 +390,7 @@ export const translations: Record<Language, Translation> = {
       logApiKeyInfo: 'Log ApiKey Info',
       apiKeyUnauthorized: 'API Key is Unauthorized or Invalid',
       apiKeyExpiresSoon: 'API Key Expires Soon',
+      savedSettings: 'Saved Settings',
     },
     users: {
       title: 'Users',
@@ -394,6 +405,8 @@ export const translations: Record<Language, Translation> = {
       filterOffline: 'Offline',
       preAuthKeys: 'PreAuth Keys',
       nodes: 'Nodes',
+      ephemeral: 'Ephemeral',
+      reusable: 'Reusable',
     },
     nodes: {
       title: 'Nodes',
@@ -481,7 +494,6 @@ export const translations: Record<Language, Translation> = {
       noSshRulesDefined: 'No SSH Rules defined',
       sshRuleDoesNotExist: 'SSH Rule does not exist at index \'{idx}\'',
       savedAclConfiguration: 'Saved ACL Configuration',
-      // UI tabs / labels
       tabCustom: 'Custom',
       tabUser: 'User',
       tabHost: 'Host',
@@ -489,6 +501,7 @@ export const translations: Record<Language, Translation> = {
       tabTag: 'Tag',
       usernames: 'Usernames',
       policyNumber: 'Policy #{number}',
+      sshRuleNumber: 'SSH Rule #{number}',
     },
     deploy: {
       title: 'Deploy',
@@ -496,8 +509,6 @@ export const translations: Record<Language, Translation> = {
       advertise: 'Advertise:',
       accept: 'Accept:',
       saveDefaults: 'Save Defaults',
-
-      // General section
       shieldsUp: 'Shields Up',
       shieldsUpHelp: 'Block incoming connections',
       generateQR: 'Generate QR Code',
@@ -516,8 +527,6 @@ export const translations: Record<Language, Translation> = {
       unattendedHelp: 'Run the tailscale client in unattended mode (on startup)',
       allowLanAccess: 'Allow LAN Access',
       allowLanAccessHelp: 'Allow local network access while connected to the TailNet and using an exit node',
-
-      // Advertise section
       advertiseExitNode: 'Advertise Exit Node',
       advertiseExitNodeHelp: 'Allow other nodes on the TailNet to use this node as a gateway',
       advertiseExitNodeLocalAccess: 'Advertise Exit Node Local Access',
@@ -525,8 +534,6 @@ export const translations: Record<Language, Translation> = {
       advertiseTagsHelp: 'List of advertised tags to apply to a machine on provisioning',
       advertiseRoutes: 'Advertise Routes',
       advertiseRoutesHelp: 'List of subnets which are reachable via this node',
-
-      // Accept section
       acceptDns: 'Accept DNS',
       acceptDnsHelp: 'Accept the HeadScale-provided DNS settings',
       acceptRoutes: 'Accept Routes',
@@ -535,6 +542,7 @@ export const translations: Record<Language, Translation> = {
       acceptExitNodeHelp: 'Use this node as a gateway (target node must advertise exit node)',
       copyCommand: 'Copy Command to Clipboard',
       copiedToClipboard: 'Copied Command to Clipboard',
+      savedDeploymentDefaults: 'Saved Deployment Defaults',
     },
   },
   zh: {
@@ -578,8 +586,6 @@ export const translations: Record<Language, Translation> = {
       displayName: '显示名称',
       provider: '提供商',
       hideInvalid: '隐藏无效',
-      ephemeral: '临时',
-      reusable: '可重用',
       any: '任意',
       tcp: 'TCP',
       udp: 'UDP',
@@ -587,8 +593,11 @@ export const translations: Record<Language, Translation> = {
       add: '添加',
       deleteUser: '删除用户',
       deleteNode: '删除节点',
+      noResultsFound: '未找到结果',
       membersOf: '成员',
       selectMembersOf: '选择成员',
+      selectOwnersOf: '选择所有者',
+      selectPlaceholder: '选择...',
       advertisedTags: '宣告标签',
       userDeleted: '已删除用户 "{name}" (ID: {id})',
       userCreateSuccess: '已创建用户 "{name}"',
@@ -607,6 +616,8 @@ export const translations: Record<Language, Translation> = {
       invalidTags: '无效标签: {error}',
       copiedToClipboard: '已复制到剪贴板！',
       failedToCopyToClipboard: '复制到剪贴板失败！',
+      doesNotExpire: '永不过期',
+      validKeys: '个有效密钥',
     },
     navigation: {
       home: '首页',
@@ -650,6 +661,7 @@ export const translations: Record<Language, Translation> = {
       logApiKeyInfo: '记录 API 密钥信息',
       apiKeyUnauthorized: 'API 密钥未授权或无效',
       apiKeyExpiresSoon: 'API 密钥即将过期',
+      savedSettings: '已保存设置',
     },
     users: {
       title: '用户',
@@ -664,6 +676,8 @@ export const translations: Record<Language, Translation> = {
       filterOffline: '离线',
       preAuthKeys: '预授权密钥',
       nodes: '节点',
+      ephemeral: '临时',
+      reusable: '可重用',
     },
     nodes: {
       title: '节点',
@@ -751,7 +765,6 @@ export const translations: Record<Language, Translation> = {
       noSshRulesDefined: '未定义 SSH 规则',
       sshRuleDoesNotExist: '索引 \'{idx}\' 的 SSH 规则不存在',
       savedAclConfiguration: '已保存 ACL 配置',
-      // UI tabs / labels
       tabCustom: '自定义',
       tabUser: '用户',
       tabHost: '主机',
@@ -759,6 +772,7 @@ export const translations: Record<Language, Translation> = {
       tabTag: '标签',
       usernames: '用户名',
       policyNumber: '策略 #{number}',
+      sshRuleNumber: 'SSH 规则 #{number}',
     },
     deploy: {
       title: '部署',
@@ -766,8 +780,6 @@ export const translations: Record<Language, Translation> = {
       advertise: '宣告',
       accept: '接受',
       saveDefaults: '保存默认设置',
-
-      // General section
       shieldsUp: '防护模式',
       shieldsUpHelp: '阻止所有传入连接',
       generateQR: '生成二维码',
@@ -786,8 +798,6 @@ export const translations: Record<Language, Translation> = {
       unattendedHelp: '在无人值守模式下运行 tailscale 客户端（启动时）',
       allowLanAccess: '允许局域网访问',
       allowLanAccessHelp: '连接到 Tailnet 并使用出口节点时允许本地网络访问',
-
-      // Advertise section
       advertiseExitNode: '宣告出口节点',
       advertiseExitNodeHelp: '允许 Tailnet 上的其他节点使用此节点作为网关',
       advertiseExitNodeLocalAccess: '宣告出口节点本地访问',
@@ -795,8 +805,6 @@ export const translations: Record<Language, Translation> = {
       advertiseTagsHelp: '在配置时应用到机器的宣告标签列表',
       advertiseRoutes: '宣告路由',
       advertiseRoutesHelp: '可通过此节点访问的子网列表',
-
-      // Accept section
       acceptDns: '接受 DNS',
       acceptDnsHelp: '接受 Headscale 提供的 DNS 设置',
       acceptRoutes: '接受路由',
@@ -805,6 +813,7 @@ export const translations: Record<Language, Translation> = {
       acceptExitNodeHelp: '使用此节点作为网关（目标节点必须宣告出口节点）',
       copyCommand: '复制命令到剪贴板',
       copiedToClipboard: '命令已复制到剪贴板',
+      savedDeploymentDefaults: '已保存部署默认设置',
     },
   },
 };

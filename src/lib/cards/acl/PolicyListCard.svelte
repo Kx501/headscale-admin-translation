@@ -222,17 +222,17 @@
 		{#snippet children()}
 		<CardListContainer>
 			<div class="mb-6">
-				<h3 class="font-mono mb-2 flex flex-row items-center">
-						<label for="policy-name">{getTranslation(App.language.value, 'common.name')}:</label>
+				<div class="mb-2">
+					<label for="policy-name" class="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-1">{getTranslation(App.language.value, 'common.name')}:</label>
 					<input
 						type="text" 
 						name="policy-name"
-						class="input text-xs rounded-md ml-4"
+						class="input text-xs rounded-md w-full"
 						autocomplete="off"
 						bind:value={policyName.value}
 						oninput={() => setPolicyName(policyName.value)}
 					/>
-				</h3>
+				</div>
 				<h3 class="font-mono mb-2 flex flex-row items-center">
 					<span>{getTranslation(App.language.value, 'acls.protocol')}:</span>
 				</h3>

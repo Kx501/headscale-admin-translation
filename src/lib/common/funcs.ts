@@ -99,7 +99,7 @@ export function getTime(
 
 export function getTimeDifferenceMessage(time1: number): string {
 	const difference = getTimeDifference(time1, new Date().getTime());
-	return difference.finite ? difference.message : 'Does Not Expire';
+	return difference.finite ? difference.message : getTranslation(App.language.value, 'common.doesNotExpire');
 }
 
 export function getTimeDifferenceColor(td: TimeDifference): string {
@@ -115,7 +115,7 @@ export function getTimeDifference(time1: number, time2?: number): TimeDifference
 		return {
 			future: true,
 			finite: false,
-			message: 'Does Not Expire',
+			message: getTranslation(App.language.value, 'common.doesNotExpire'),
 		};
 	}
 
