@@ -52,7 +52,7 @@
 		acl.createSshRule(ACLBuilder.DefaultSshRule())
 		if (acl.ssh !== undefined){
 			debug("created new SSH rule at index " + (acl.ssh.length - 1).toString())
-			toastSuccess('Created SSH Rule #' + acl.acls.length, ToastStore)
+			toastSuccess(getTranslation(App.language.value, 'acls.sshRuleCreated', { number: acl.ssh.length.toString() }), ToastStore)
 		}
 	}
 </script>

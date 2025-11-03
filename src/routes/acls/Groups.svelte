@@ -39,7 +39,7 @@
 		loading = true;
 		try {
 			acl.createGroup(newGroupName);
-			toastSuccess(`Group '${newGroupName}' created`, ToastStore);
+			toastSuccess(getTranslation(App.language.value, 'acls.groupCreated', { groupName: newGroupName }), ToastStore);
 			newGroupName = '';
 			showCreateGroup = false;
 		} catch (e) {
@@ -71,7 +71,7 @@
 		</div>
 		{#if showCreateGroup}
 			<NewItem
-				title="Group"
+				title={getTranslation(App.language.value, 'acls.group')}
 				disabled={loading}
 				bind:name={newGroupName}
 				submit={newGroup}

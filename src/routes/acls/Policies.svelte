@@ -39,9 +39,10 @@
 		const policy = ACLBuilder.EmptyPolicy()
 		ACLBuilder.addPolicyMeta(policy)
 
+		const policyIndex = acl.acls.length;
 		acl.createPolicy(policy)
-		debug("created new policy at index " + (acl.acls.length - 1).toString())
-		toastSuccess(getTranslation(App.language.value, 'acls.policyCreated', { policyNumber: acl.acls.length.toString() }), ToastStore)
+		debug("created new policy at index " + (policyIndex - 1).toString())
+		toastSuccess(getTranslation(App.language.value, 'acls.policyCreated', { policyNumber: policyIndex.toString() }), ToastStore)
 	}
 
 	function makeReorderFunc(idx: number, direction: 'up' | 'down'): () => void {

@@ -59,10 +59,10 @@
         loading = true
 		getPolicy().then(policy => {
 			acl = ACLBuilder.fromPolicy(JWCC.parse<ACL>(policy))
-            toastSuccess("Loaded ACL policy from server", ToastStore)
+            toastSuccess(getTranslation(App.language.value, 'acls.policyLoaded'), ToastStore)
 		}).catch(reason => {
 			debug("failed to get policy:", reason)
-			toastError(`Unable to get ACL policy from server.`, ToastStore, reason)
+			toastError(getTranslation(App.language.value, 'acls.unableToGetPolicy'), ToastStore, reason)
 		}).finally(() => {
             loading = false
         })

@@ -187,7 +187,7 @@
 						}
 					}}
 				>
-					Add
+					{getTranslation(App.language.value, 'common.add')}
 				</button>
 			</div>
 		</div>
@@ -253,7 +253,7 @@
 						}
 					}}
 				>
-					Add
+					{getTranslation(App.language.value, 'common.add')}
 				</button>
 			</div>
 		</div>

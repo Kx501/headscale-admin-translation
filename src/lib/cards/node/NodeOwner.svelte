@@ -74,7 +74,11 @@
 						App.updateValue(App.nodes, n);
 						showTransfer = false;
 						toastSuccess(
-							`Changed owner of ${node.givenName} from "${oldUserName}" to "${n.user.name}"`,
+							getTranslation(App.language.value, 'common.nodeOwnerChanged', {
+								nodeName: node.givenName,
+								oldOwner: oldUserName,
+								newOwner: n.user.name,
+							}),
 							ToastStore,
 						);
 					} catch (error) {

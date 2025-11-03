@@ -30,7 +30,7 @@
 		loading = true;
 		try {
 			acl.createHost(newHostName, newHostCIDR);
-			toastSuccess(`Host '${newHostName}' created`, ToastStore);
+			toastSuccess(getTranslation(App.language.value, 'acls.hostCreated', { hostName: newHostName }), ToastStore);
 			newHostName = '';
 			newHostCIDR = '';
 			showCreateHost = false;
@@ -75,7 +75,7 @@
 		</div>
 		{#if showCreateHost}
 			<NewItem
-				title="Host"
+				title={getTranslation(App.language.value, 'acls.host')}
 				disabled={loading}
 				bind:name={newHostName}
 				bind:value={newHostCIDR}

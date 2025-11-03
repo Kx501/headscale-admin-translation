@@ -23,7 +23,7 @@
 		loading = true;
 		try {
 			acl.createTag(newTagName);
-			toastSuccess(`Tag Ownership of '${newTagName}' created`, ToastStore);
+			toastSuccess(getTranslation(App.language.value, 'acls.tagCreated', { tagName: newTagName }), ToastStore);
 			newTagName = '';
 			showCreateTag = false;
 		} catch (e) {
@@ -66,7 +66,7 @@
 		</div>
 		{#if showCreateTag}
 			<NewItem
-				title="Tag"
+				title={getTranslation(App.language.value, 'acls.tag')}
 				disabled={loading}
 				bind:name={newTagName}
 				submit={() => {

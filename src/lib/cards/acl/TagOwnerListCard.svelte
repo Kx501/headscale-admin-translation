@@ -102,7 +102,7 @@
 	{#snippet children()}
 	<CardListContainer>
 		<h3 class="font-mono mb-4 flex flex-row items-center">
-			<span>Owners of</span>
+			<span>{getTranslation(App.language.value, 'common.ownersOf')}</span>
 			<Text
 				bind:value={tag.name}
 				bind:valueNew={tagNameNew}

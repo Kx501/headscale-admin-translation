@@ -54,6 +54,7 @@ export interface Translation {
     selectMembersOf: string;
     selectOwnersOf: string;
     selectPlaceholder: string;
+    ownersOf: string;
     advertisedTags: string;
     userDeleted: string;
     userCreateSuccess: string;
@@ -74,6 +75,8 @@ export interface Translation {
     failedToCopyToClipboard: string;
     doesNotExpire: string;
     validKeys: string;
+    nodeOwnerChanged: string;
+    user: string;
   };
   navigation: {
     home: string;
@@ -226,9 +229,17 @@ export interface Translation {
     tabHost: string;
     tabGroup: string;
     tabTag: string;
-      usernames: string;
-      policyNumber: string;
-      sshRuleNumber: string;
+    usernames: string;
+    policyNumber: string;
+    sshRuleNumber: string;
+    policyLoaded: string;
+    hostCreated: string;
+    host: string;
+    tagCreated: string;
+    groupCreated: string;
+    sshRuleCreated: string;
+    tag: string;
+    group: string;
   };
   deploy: {
     title: string;
@@ -325,9 +336,10 @@ export const translations: Record<Language, Translation> = {
       noResultsFound: 'No Results Found',
       membersOf: 'Members of',
       selectMembersOf: 'Select members of',
-    selectOwnersOf: 'Select owners of',
-    selectPlaceholder: 'Select...',
-    advertisedTags: 'Advertised Tags',
+      selectOwnersOf: 'Select owners of',
+      selectPlaceholder: 'Select...',
+      ownersOf: 'Owners of',
+      advertisedTags: 'Advertised Tags',
       userDeleted: 'Deleted User "{name}" (ID: {id})',
       userCreateSuccess: 'Created user "{name}"',
       userCreateFailed: 'Failed to create user "{name}"',
@@ -347,6 +359,8 @@ export const translations: Record<Language, Translation> = {
       failedToCopyToClipboard: 'Failed to copy to clipboard!',
       doesNotExpire: 'Does Not Expire',
       validKeys: 'Valid Key(s)',
+      nodeOwnerChanged: 'Changed owner of {nodeName} from "{oldOwner}" to "{newOwner}"',
+      user: 'User',
     },
     navigation: {
       home: 'Home',
@@ -475,7 +489,7 @@ export const translations: Record<Language, Translation> = {
       sshRuleDeleted: 'SSH Rule #\'{ruleNumber}\' deleted',
       tagRenamed: 'Tag renamed from \'{oldName}\' to \'{newName}\'',
       tagDeleted: 'Tag \'{tagName}\' deleted',
-      unableToGetPolicy: 'Unable to get policy from server.',
+      unableToGetPolicy: 'Unable to get policy from server',
       groupNameMustBeLowercase: 'Group name must be lowercase',
       groupNameLimited: 'Group name is limited to: lowercase alphabet, digits, dashes, and periods',
       tagNameNoSpaces: 'Tag name must contain no spaces',
@@ -490,7 +504,7 @@ export const translations: Record<Language, Translation> = {
       groupOldDoesNotExist: 'Group \'{strippedOld}\' does not exist',
       groupDoesNotExist: 'Group \'{stripped}\' does not exist',
       policyDoesNotExist: 'Policy does not exist at index \'{idx}\'',
-      policyCreated: 'Policy created',
+      policyCreated: 'Policy #{policyNumber} created',
       noSshRulesDefined: 'No SSH Rules defined',
       sshRuleDoesNotExist: 'SSH Rule does not exist at index \'{idx}\'',
       savedAclConfiguration: 'Saved ACL Configuration',
@@ -502,6 +516,14 @@ export const translations: Record<Language, Translation> = {
       usernames: 'Usernames',
       policyNumber: 'Policy #{number}',
       sshRuleNumber: 'SSH Rule #{number}',
+      policyLoaded: 'Loaded ACL policy from server',
+      hostCreated: 'Host \'{hostName}\' created',
+      host: 'Host',
+      tagCreated: 'Tag Ownership of \'{tagName}\' created',
+      groupCreated: 'Group \'{groupName}\' created',
+      sshRuleCreated: 'Created SSH Rule #{number}',
+      tag: 'Tag',
+      group: 'Group',
     },
     deploy: {
       title: 'Deploy',
@@ -598,6 +620,7 @@ export const translations: Record<Language, Translation> = {
       selectMembersOf: '选择成员',
       selectOwnersOf: '选择所有者',
       selectPlaceholder: '选择...',
+      ownersOf: '所有者',
       advertisedTags: '宣告标签',
       userDeleted: '已删除用户 "{name}" (ID: {id})',
       userCreateSuccess: '已创建用户 "{name}"',
@@ -618,6 +641,8 @@ export const translations: Record<Language, Translation> = {
       failedToCopyToClipboard: '复制到剪贴板失败！',
       doesNotExpire: '永不过期',
       validKeys: '个有效密钥',
+      nodeOwnerChanged: '已将 {nodeName} 的所有者从 "{oldOwner}" 更改为 "{newOwner}"',
+      user: '用户',
     },
     navigation: {
       home: '首页',
@@ -746,7 +771,7 @@ export const translations: Record<Language, Translation> = {
       sshRuleDeleted: 'SSH 规则 #\'{ruleNumber}\' 已删除',
       tagRenamed: '标签已从 \'{oldName}\' 重命名为 \'{newName}\'',
       tagDeleted: '标签 \'{tagName}\' 已删除',
-      unableToGetPolicy: '无法从服务器获取策略。',
+      unableToGetPolicy: '无法从服务器获取策略',
       groupNameMustBeLowercase: '组名必须为小写',
       groupNameLimited: '组名限制为：小写字母、数字、连字符和句点',
       tagNameNoSpaces: '标签名不能包含空格',
@@ -761,7 +786,7 @@ export const translations: Record<Language, Translation> = {
       groupOldDoesNotExist: '组 \'{strippedOld}\' 不存在',
       groupDoesNotExist: '组 \'{stripped}\' 不存在',
       policyDoesNotExist: '索引 \'{idx}\' 的策略不存在',
-      policyCreated: '策略已创建',
+      policyCreated: '策略 #{policyNumber} 已创建',
       noSshRulesDefined: '未定义 SSH 规则',
       sshRuleDoesNotExist: '索引 \'{idx}\' 的 SSH 规则不存在',
       savedAclConfiguration: '已保存 ACL 配置',
@@ -773,6 +798,14 @@ export const translations: Record<Language, Translation> = {
       usernames: '用户名',
       policyNumber: '策略 #{number}',
       sshRuleNumber: 'SSH 规则 #{number}',
+      policyLoaded: '已从服务器加载 ACL 策略',
+      hostCreated: '主机 \'{hostName}\' 已创建',
+      host: '主机',
+      tagCreated: '标签所有权 \'{tagName}\' 已创建',
+      groupCreated: '组 \'{groupName}\' 已创建',
+      sshRuleCreated: '已创建 SSH 规则 #{number}',
+      tag: '标签',
+      group: '组',
     },
     deploy: {
       title: '部署',
