@@ -6,6 +6,7 @@
 	import CardTileContainer from '../CardTileContainer.svelte';
 	import OnlineUserIndicator from '$lib/parts/OnlineUserIndicator.svelte';
 	import { App } from '$lib/States.svelte';
+	import { getTranslation } from '$lib/common/locales';
 
 	type UserTileCardProps = {
 		user: User,
@@ -32,13 +33,13 @@
 		</div>
 	</div>
 	<div class="flex justify-between items-center mb-2 mt-2">
-		<div class="flex items-center font-semibold">Created:</div>
+		<div class="flex items-center font-semibold">{getTranslation(App.language.value, 'common.created')}:</div>
 		<div class="flex items-center">
 			{dateToStr(new Date(user.createdAt))}
 		</div>
 	</div>
 	<div class="flex justify-between items-center mb-2 mt-2">
-		<div class="flex items-center font-semibold">Nodes:</div>
+		<div class="flex items-center font-semibold">{getTranslation(App.language.value, 'users.nodes')}:</div>
 		<div class="flex items-center">
 			{nodeCount}
 		</div>

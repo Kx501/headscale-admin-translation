@@ -133,23 +133,23 @@ export function getTimeDifference(time1: number, time2?: number): TimeDifference
 	const months = Math.floor(weeks / 4);
 
 	if (months > 0) {
-		message = `${months} month${months == 1 ? '' : 's'}`;
+		message = `${months} ${getTranslation(App.language.value, months == 1 ? 'common.timeMonth' : 'common.timeMonths')}`;
 	} else if (weeks > 0) {
-		message = `${weeks} week${weeks == 1 ? '' : 's'}`;
+		message = `${weeks} ${getTranslation(App.language.value, weeks == 1 ? 'common.timeWeek' : 'common.timeWeeks')}`;
 	} else if (days > 0) {
-		message = `${days} day${days == 1 ? '' : 's'}`;
+		message = `${days} ${getTranslation(App.language.value, days == 1 ? 'common.timeDay' : 'common.timeDays')}`;
 	} else if (hours > 0) {
-		message = `${hours} hour${hours == 1 ? '' : 's'}`;
+		message = `${hours} ${getTranslation(App.language.value, hours == 1 ? 'common.timeHour' : 'common.timeHours')}`;
 	} else if (minutes > 0) {
-		message = `${minutes} minute${minutes == 1 ? '' : 's'}`;
+		message = `${minutes} ${getTranslation(App.language.value, minutes == 1 ? 'common.timeMinute' : 'common.timeMinutes')}`;
 	} else {
-		message = `${seconds} second${seconds == 1 ? '' : 's'}`;
+		message = `${seconds} ${getTranslation(App.language.value, seconds == 1 ? 'common.timeSecond' : 'common.timeSeconds')}`;
 	}
 
 	return {
 		future: isFuture,
 		finite: true,
-		message: message + ` ${isFuture ? 'from now' : 'ago'}`,
+		message: message + ` ${getTranslation(App.language.value, isFuture ? 'common.timeFromNow' : 'common.timeAgo')}`,
 	};
 }
 

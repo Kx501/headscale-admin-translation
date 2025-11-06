@@ -25,7 +25,7 @@
 
 <CardListEntry title={getTranslation(App.language.value, 'common.lastSeen') + ':'}>
 	{#if node.online}
-		Online Now
+		{getTranslation(App.language.value, 'common.onlineNow')}
 	{:else}
 		{lastSeen}
 	{/if}

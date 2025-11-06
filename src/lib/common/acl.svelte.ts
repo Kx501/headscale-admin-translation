@@ -752,7 +752,7 @@ export async function saveConfig(acl: ACLBuilder, ToastStore: ToastStore, loadin
     try {
         await setPolicy(acl)
         if(ToastStore !== undefined){
-            toastSuccess('Saved ACL Configuration', ToastStore)
+            toastSuccess(getTranslation(App.language.value, 'acls.savedAclConfiguration'), ToastStore)
         }
     } catch(err) {
         if (err instanceof Error){

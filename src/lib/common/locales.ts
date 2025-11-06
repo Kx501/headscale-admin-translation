@@ -77,6 +77,21 @@ export interface Translation {
     validKeys: string;
     nodeOwnerChanged: string;
     user: string;
+    timeFromNow: string;
+    timeAgo: string;
+    timeMonth: string;
+    timeMonths: string;
+    timeWeek: string;
+    timeWeeks: string;
+    timeDay: string;
+    timeDays: string;
+    timeHour: string;
+    timeHours: string;
+    timeMinute: string;
+    timeMinutes: string;
+    timeSecond: string;
+    timeSeconds: string;
+    onlineNow: string;
   };
   navigation: {
     home: string;
@@ -361,6 +376,21 @@ export const translations: Record<Language, Translation> = {
       validKeys: 'Valid Key(s)',
       nodeOwnerChanged: 'Changed owner of {nodeName} from "{oldOwner}" to "{newOwner}"',
       user: 'User',
+      timeFromNow: 'from now',
+      timeAgo: 'ago',
+      timeMonth: 'month',
+      timeMonths: 'months',
+      timeWeek: 'week',
+      timeWeeks: 'weeks',
+      timeDay: 'day',
+      timeDays: 'days',
+      timeHour: 'hour',
+      timeHours: 'hours',
+      timeMinute: 'minute',
+      timeMinutes: 'minutes',
+      timeSecond: 'second',
+      timeSeconds: 'seconds',
+      onlineNow: 'Online Now',
     },
     navigation: {
       home: 'Home',
@@ -643,6 +673,21 @@ export const translations: Record<Language, Translation> = {
       validKeys: '个有效密钥',
       nodeOwnerChanged: '已将 {nodeName} 的所有者从 "{oldOwner}" 更改为 "{newOwner}"',
       user: '用户',
+      timeFromNow: '后',
+      timeAgo: '前',
+      timeMonth: '个月',
+      timeMonths: '个月',
+      timeWeek: '周',
+      timeWeeks: '周',
+      timeDay: '天',
+      timeDays: '天',
+      timeHour: '小时',
+      timeHours: '小时',
+      timeMinute: '分钟',
+      timeMinutes: '分钟',
+      timeSecond: '秒',
+      timeSeconds: '秒',
+      onlineNow: '当前在线',
     },
     navigation: {
       home: '首页',
